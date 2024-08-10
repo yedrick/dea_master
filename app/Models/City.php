@@ -30,4 +30,8 @@ class City extends Model{
 
     // Definir relaciones y atributos aquí
 
+    public function country() {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
 }

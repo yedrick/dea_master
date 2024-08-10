@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Doctrine\DBAL\DriverManager;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -30,21 +31,25 @@ class CrudCommand extends Command {
      * Execute the console command.
      */
     public function handle(){
-        $this->info('Crud Command');
-
-        //  Ejectuar comandos de crear base de datos y tablas pero primero borramos la base de datos
-        $this->runCommands('config:cache');
-        // creamos la base de datos
-        $this->runCommands('migrate:fresh');
-
-        $tables = $this->getTables();
-        foreach ($tables as $key => $table) {
-            $this->info("Table: $table");
-            $columns = $this->getColumns($table);
-            // $this->info("Columns: ".json_encode($columns));
-            $this->info("Relations: ".json_encode($this->getRelations($table)));
+        $this->info('Generador de CRUD');
+        $name = $this->choice(
+            'Que Formato Deseas Usar?',
+            ['Api', 'Crud','Deploy_Node'],
+            2,
+            $maxAttempts = null,
+            $allowMultipleSelections = false
+        );
+        if($name == 'Api'){
+            $this->info('Api');
+        }elseif($name == 'Crud'){
+            $this->info('Crud');
+        }elseif($name == 'Deploy_Node'){
+            $this->info('Deploy');
+            //llamamod al comando para crear un nodo
+            $this->call('app:crud-node');
+        }else{
+            $this->info('No se selecciono ninguna opcion');
         }
-
     }
     //funcion para obtener las tablas de la base de datos
     protected function getTables(){

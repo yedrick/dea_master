@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FieldOption extends Model {
 
     protected $table = 'field_options';
-    public $timestamps = false;
+    public $timestamps = true;
 
     public $translatedAttributes = ['label'];
     protected $fillable = ['parent_id','name','label'];

@@ -59,96 +59,92 @@ class NodeCommand extends CrudCommand{
             $node=$this->createNode($table);
             $this->getColumnsNode($node);
         }
-        // guardaremos los filds de node
-        // $nodes=Node::get();
-        // foreach ($nodes as $node) {
-        //     $this->info('Node: '.$node->table_name);
-        //     $columns=$this->getColumnsNode($node);
-        // }
     }
 
 
     //funcion donde se tiene que implementar la logica para obtener las columnas de una tabla
-    protected function getColumnsNode($node){
-        $table=$node->table_name;
-        $columns = [];
-        $num=0;
-        $display_list='show';
-        $display_item='show';
-        $table_schema = $this->getColumns($table);
-        // $this->info('Tabla: '.$table);
-        foreach ($table_schema as $key=>$column) {
-            if (strpos($column['name'], '_id') !== false) {
-                $this->getRelationColum($table,$column['name']);
+    protected function getColumnsNode($node) {
+        $table = $node->table_name;
+        $tableSchema = $this->getColumns($table);
+        $displayThreshold = 6;
+
+        return collect($tableSchema)->map(function ($column, $key) use ($node, &$displayThreshold, $table) {
+            $displayThreshold--;
+            $isRelation = str_contains($column['name'], '_id');
+            if ($isRelation) {
+                $this->getRelationColumn($table, $column['name']);
             }
-            // armamos el tipo y el name de la columna  donde llamamos la funcion del service ColumnTypeMap
-            $model_relation = null;
-            $table_relation = null;
-            foreach ($this->relations as $relation) {
-                if (array_key_exists($column['name'], $relation)) {
-                    $model_relation = $relation[$column['name']]['model_relation'];
-                    $table_relation = $relation[$column['name']]['table'];
-                }
-            }
-            if($num>5||$column['name']==='created_at' || $column['name']==='updated_at' || $column['name']==='deleted_at'){
-                $display_list='excel';
-                $display_item='none';
-            }
+            $relation = $this->relations[$column['name']] ?? null;
             $field=Field::create([
                 'parent_id' => $node->id,
-                'order'=>($num+=1),
+                'order' => $key + 1,
                 'name' => $column['name'],
-                'trans_name'=>$column['name'],
+                'trans_name' => $column['name'],
                 'type' => $this->columnTypeMap->getColumnType($column['type'], $column['name']),
-                'display_list'=>$display_list,
-                'display_item'=>$display_item,
-                'relation' => strpos($column['name'], '_id') !== false ? 1 : 0,
-                'required' => $column['nullable'] === 1 ? 1 : 0,
-                'label' =>'field.'.$column['name'],
+                'display_list' => $this->getDisplayList($displayThreshold, $column['name']),
+                'display_item' => $this->getDisplayItem($displayThreshold, $column['name']),
+                'relation' => $isRelation ? 1 : 0,
+                'required' => $column['nullable'] === 1 ? 0 : 1,
+                'label' => "field.{$column['name']}",
                 'placeholder' => null,
-                'relation_cond' => $model_relation??null,
-                'value' => $table_relation??null,
+                'relation_cond' => $relation['model_relation'] ?? null,
+                'value' => $relation['table'] ?? null,
             ]);
-            if($column['type_name']==='Enum' || $column['type_name']==='enum'){
-                $options=$column['type'];//enum('option1','option2')
-                $options=explode("','",substr($options,6,-2));
-                $this->createFieldOptions($options,$field->id);
-            }
-            if ($column['type_name']==='tinyint') {
-                $options=['No','Si'];
-                $this->createFieldOptions($options,$field->id);
-            }
+            $this->handleSpecialFieldTypes($field,$column['type_name'],$column['type']);
+            return $field;
+        })->all();
+    }
+
+    private function getDisplayList($threshold, $name): string {
+        return $threshold <= 0 || in_array($name, ['created_at', 'updated_at', 'deleted_at']) ? 'excel' : 'show';
+    }
+
+    private function getDisplayItem($threshold, $name): string {
+        return $threshold <= 0 || in_array($name, ['created_at', 'updated_at', 'deleted_at']) ? 'none' : 'show';
+    }
+
+    private function handleSpecialFieldTypes(Field $field,$type,$option): void {
+        if (in_array($type, ['enum', 'tinyint'])) {
+            $options = $type === 'enum'
+                ? explode("','", substr($option, 6, -2))
+                : ['No', 'Si'];
+
+            $this->createFieldOptions($options, $field->id);
         }
-        return $columns;
     }
 
     // funcion para crear los fieldsOptions
-    protected function createFieldOptions($options,$parent_id){
-        foreach ($options as $option) {
+    protected function createFieldOptions($options, $parent_id) {
+        collect($options)->each(function ($option) use ($parent_id) {
+            $num=0;
             FieldOption::create([
-                'parent_id'=>$parent_id,
-                'name'=>$option,
-                'label'=>'admin.'.$option,
+                'parent_id' => $parent_id,
+                'name' => $option,
+                'label' => "admin.{$option}",
             ]);
-        }
+        });
     }
 
     // funcion para obtner la relacion de una tabla  y columan que termina en _id
-    protected function getRelationColum($table,$name){
+    protected function getRelationColumn($table, $name) {
         if (in_array($table, $this->table_relation)) {
-            return [];
+            return;
         }
+
         $this->table_relation[] = $table;
-        $columns= $this->getRelations($table);
-        foreach ($columns as $column) {
-            $this->relations[] = [
-                $column['columns'][0] => [
-                    'table' => $column['foreign_table'],
-                    // 'model_relation' => 'App\\Models\\'.ucfirst($column['foreign_table']),
-                    'model_relation'=>$this->getDirModel($column['foreign_table'])
-                ]
-            ];
-        }
+        $columns = $this->getRelations($table);
+
+        $this->relations = array_merge(
+            $this->relations,
+            collect($columns)->mapWithKeys(function ($column) {
+                return [
+                    $column['columns'][0] => [
+                        'table' => $column['foreign_table'],
+                        'model_relation' => $this->getDirModel($column['foreign_table'])
+                    ]
+                ];
+            })->all()
+        );
     }
 
     protected function getDirModel($name) {

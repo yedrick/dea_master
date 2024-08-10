@@ -60,7 +60,7 @@ return new class extends Migration
         Schema::create('country', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
         //city
@@ -69,7 +69,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('country');
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
         // persona
