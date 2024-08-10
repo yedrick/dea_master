@@ -9,11 +9,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use App\Console\Commands\CrudCommand;
 use App\Models\Field;
+use App\Models\FieldOption;
 use App\Models\Node;
 use App\Services\ColumnTypeMap;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 
-class NodeCommand extends CrudCommand   {
+class NodeCommand extends CrudCommand{
 
 
     protected $columnTypeMap;
@@ -47,48 +49,34 @@ class NodeCommand extends CrudCommand   {
      */
     public function handle(){
         $this->info('Crud Command');
-        //  Ejectuar comandos de crear base de datos y tablas pero primero borramos la base de datos
         $this->runCommands('config:cache');
-        // creamos la base de datos
         $this->runCommands('migrate:fresh');
         $tables = $this->getTables();
-        $tables_array=[];
         foreach ($tables as $key => $table) {
             $this->info("Table: $table");
             $model_name = str_replace('_','-',Str::studly(Str::singular($table)));
-            $model_exist_master=base_path('vendor/yedrick/master/src/app/Models/'.$model_name.'.php');
-            $model_exist=app_path('Models\\'.$model_name.'.php');
-            if(!file_exists($model_exist) && !file_exists($model_exist_master)){
-                $this->info('Crear Modelo');
-                $this->createModel($table,$table);
-            }
-            $model=$this->getDirModel($table);
-            $node=[
-                'name'=>str_replace('_','-',Str::singular($table)),
-                'table_name'=>$table,
-                'model'=>$model,
-                'singular'=>'',
-                'plular'=>'',
-            ];
-            $columns = $this->getColumnsNode($table);
-            $node_create=Node::create($node);
-            // obtner  el nodo creado
-            $this->info('NODE');
-            $this->info($node_create);
-            $columns['parent_id']=>$node_create->id;
-            Field::crete()
-
-            // $this->info("Columns: ".json_encode($columns));
+            $this->modelExists($model_name,$table);
+            $node=$this->createNode($table);
+            $this->getColumnsNode($node);
         }
-        // $this->info(json_encode($tables_array));
+        // guardaremos los filds de node
+        // $nodes=Node::get();
+        // foreach ($nodes as $node) {
+        //     $this->info('Node: '.$node->table_name);
+        //     $columns=$this->getColumnsNode($node);
+        // }
     }
+
+
     //funcion donde se tiene que implementar la logica para obtener las columnas de una tabla
-    protected function getColumnsNode($table){
+    protected function getColumnsNode($node){
+        $table=$node->table_name;
         $columns = [];
         $num=0;
         $display_list='show';
         $display_item='show';
         $table_schema = $this->getColumns($table);
+        // $this->info('Tabla: '.$table);
         foreach ($table_schema as $key=>$column) {
             if (strpos($column['name'], '_id') !== false) {
                 $this->getRelationColum($table,$column['name']);
@@ -102,24 +90,47 @@ class NodeCommand extends CrudCommand   {
                     $table_relation = $relation[$column['name']]['table'];
                 }
             }
-            if($key<=4||$column['name']==='created_at' || $column['name']==='updated_at'){
+            if($num>5||$column['name']==='created_at' || $column['name']==='updated_at' || $column['name']==='deleted_at'){
                 $display_list='excel';
-                $display_item='excel';
+                $display_item='none';
             }
-            $columns[] = [
-                'order'=>$num+1,
+            $field=Field::create([
+                'parent_id' => $node->id,
+                'order'=>($num+=1),
                 'name' => $column['name'],
                 'trans_name'=>$column['name'],
                 'type' => $this->columnTypeMap->getColumnType($column['type'], $column['name']),
-                'singular' => '',
-                'plural' => '',
                 'display_list'=>$display_list,
                 'display_item'=>$display_item,
+                'relation' => strpos($column['name'], '_id') !== false ? 1 : 0,
+                'required' => $column['nullable'] === 1 ? 1 : 0,
+                'label' =>'field.'.$column['name'],
+                'placeholder' => null,
                 'relation_cond' => $model_relation??null,
                 'value' => $table_relation??null,
-            ];
+            ]);
+            if($column['type_name']==='Enum' || $column['type_name']==='enum'){
+                $options=$column['type'];//enum('option1','option2')
+                $options=explode("','",substr($options,6,-2));
+                $this->createFieldOptions($options,$field->id);
+            }
+            if ($column['type_name']==='tinyint') {
+                $options=['No','Si'];
+                $this->createFieldOptions($options,$field->id);
+            }
         }
         return $columns;
+    }
+
+    // funcion para crear los fieldsOptions
+    protected function createFieldOptions($options,$parent_id){
+        foreach ($options as $option) {
+            FieldOption::create([
+                'parent_id'=>$parent_id,
+                'name'=>$option,
+                'label'=>'admin.'.$option,
+            ]);
+        }
     }
 
     // funcion para obtner la relacion de una tabla  y columan que termina en _id
@@ -141,23 +152,47 @@ class NodeCommand extends CrudCommand   {
     }
 
     protected function getDirModel($name) {
-        $model=null;
-        if (file_exists(app_path('Models\\'.str_replace('_','-',Str::studly($name)).'.php'))) {
-            $model = '\App\\Models\\'.str_replace('_','-',Str::studly($name));
-        }elseif (file_exists(base_path('vendor/yedrick/master/src/app/Models/'.str_replace('_','-',Str::studly($name)).'.php'))){
-            $model = '\yedrick\Master\App\Models\\'.str_replace('_','-',Str::studly($name));
-        }elseif (file_exists(app_path('Models\\'.Str::studly(Str::singular($name)).'.php'))) {
-            $model= 'App\\Models\\'.Str::studly($name).'.php';
+        $modelName=Str::studly(Str::singular($name));
+        $modulePath = base_path('app/Master/Models/' . $modelName . '.php');
+        $systemPath = base_path('app/Models/' . $modelName . '.php');
+        if (File::exists($modulePath)) {
+            $dirModel='App\\Master\\Models\\'.$modelName;
+            return $dirModel;
         }
-        if ($model===null) {
-            $this->info('Modelo no encontrado');
+        if (File::exists($systemPath)) {
+            $dirModel='App\\Models\\'.$modelName;
+            return $dirModel;
         }
-        return $model;
+
+        return null;
+    }
+    // funcion par crear el node
+    protected function createNode($table){
+        if(Node::where('table_name',$table)->exists()){
+            return;
+        }
+        $node=Node::create([
+            'name'=>str_replace('_','-',Str::singular($table)),
+            'table_name'=>$table,
+            'model'=>$this->getDirModel($table),
+            'singular'=>'node.'.$table,
+            'plural'=>'nodes.'.$table,
+        ]);
+        return $node;
+    }
+
+    // verificamos si existe la el modelo
+    protected function modelExists($model_name,$table){
+        $model_exist_master=base_path('vendor/yedrick/master/src/app/Models/'.$model_name.'.php');
+        $model_exist=app_path('Models\\'.$model_name.'.php');
+        if(!file_exists($model_exist) && !file_exists($model_exist_master)){
+            $this->info('Crear Modelo');
+            $this->createModel($table);
+        }
     }
 
     // creamos el modelo  por stub
     protected function createModel($table){
-        $this->info('Creando Modelo');
         Artisan::call('make:model-master', ['table' => $table]);
     }
 

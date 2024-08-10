@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('singular')->nullable();
             $table->string('plural')->nullable();
-            $table->enum('type', ['normal', 'child', 'subchild', 'field'])->default('normal');
-            $table->string('folder')->nullable();
+            $table->enum('type', ['normal', 'child', 'subchild'])->default('normal');
             $table->integer('parent_id')->nullable();
             $table->timestamps();
         });
@@ -32,15 +31,10 @@ return new class extends Migration
             $table->string('trans_name');
             $table->enum('type', ['string','integer','decimal','text','select','password','email','url','image','file','barcode','map','color','radio','checkbox','date','array','score','hidden','child','subchild','field','custom','title','content'])->default('string');
             $table->enum('display_list', ['show', 'excel', 'none'])->default('show');
-            $table->enum('display_item', ['show', 'excel','none'])->default('show');
+            $table->enum('display_item', ['show','none'])->default('show');
             $table->boolean('relation')->default(0);
-            // $table->boolean('multiple')->default(0);
-            // $table->boolean('translation')->default(0);
             $table->boolean('required')->default(0);
-            // $table->boolean('new_row')->default(0);
-            // $table->boolean('preset')->default(0);
             $table->string('label')->nullable();
-            // $table->string('permission')->nullable();
             $table->string('placeholder')->nullable();
 
             $table->string('child_table')->nullable();
@@ -65,7 +59,7 @@ return new class extends Migration
         // contry table //
         Schema::create('country', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -79,7 +73,7 @@ return new class extends Migration
             $table->timestamps();
         });
         // persona
-        Schema::create('person', function (Blueprint $table) {
+        Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('last_name');
@@ -88,6 +82,7 @@ return new class extends Migration
             $table->date('birthdate');
             $table->integer('ci')->default('0');
             $table->enum('sex',['M','F'])->default('M');
+            $table->boolean('status')->default(1);
             // country_id
             $table->unsignedBigInteger('contry_id');
             $table->unsignedBigInteger('city_id');

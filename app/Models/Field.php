@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends Model{
 
     protected $table = 'fields';
-    protected $fillable = [];
+    protected $fillable = ['parent_id', 'order', 'name','trans_name','type','display_list','display_item','relation','required','label','placeholder','child_table','relation_cond','value'];
     protected $with = [];
     public $timestamps=true;
 

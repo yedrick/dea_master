@@ -10,7 +10,7 @@ class FieldOption extends Model {
     public $timestamps = false;
 
     public $translatedAttributes = ['label'];
-    protected $fillable = ['name','label'];
+    protected $fillable = ['parent_id','name','label'];
 
     /* Creating rules */
     public static $rules_create = array(

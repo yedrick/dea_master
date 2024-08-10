@@ -36,6 +36,7 @@ class CrudCommand extends Command {
         $this->runCommands('config:cache');
         // creamos la base de datos
         $this->runCommands('migrate:fresh');
+
         $tables = $this->getTables();
         foreach ($tables as $key => $table) {
             $this->info("Table: $table");
@@ -61,8 +62,15 @@ class CrudCommand extends Command {
 		}));
         return $tables;
     }
+
     protected function getColumns($table): ?array{
             $tableColumns = Schema::getColumns($table);
+        return $tableColumns;
+    }
+
+    // funcion para verificar  typo de columana
+    protected function getColumnTypeDb($table, $column,$fullDefinition=false){
+        $tableColumns = Schema::getColumns($table,$column,$fullDefinition);
         return $tableColumns;
     }
 
