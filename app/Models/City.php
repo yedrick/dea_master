@@ -10,8 +10,13 @@ class City extends Model{
     protected $with = [];
     public $timestamps=true;
 
+    // public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
+    // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
+
         /* Create rules */
     public static $rules_create = array(
+        "name"=>"required|string|max:255",
+        "state_id"=>"required|integer",
 	);
 		/* Updating rules */
     public static $rules_edit = array(
