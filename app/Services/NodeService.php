@@ -83,6 +83,7 @@ class NodeService extends CrudNodeService {
     // obtner  si es busqueda por relacion o no
     public function getRelation($key) {
         $relation = $this->modelNode->getRelation($key);
+
         return $relation;
     }
 
