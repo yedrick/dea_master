@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentsParent extends Model{
 
     protected $table = 'students_parents';
-    protected $with = [];
+    protected $with = ['user'];
     public $timestamps=true;
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
@@ -29,10 +29,10 @@ class StudentsParent extends Model{
         return $this->belongsTo(Student::class);
     }
 
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
-    
+
 
 
 }

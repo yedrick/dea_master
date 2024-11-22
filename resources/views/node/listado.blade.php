@@ -28,6 +28,12 @@
                             @foreach ($titles  as $key=>$field)
                                 @if ($field->relation === 1)
                                     <td class="px-4 py-3 font-medium whitespace-nowrap text-slate-700 sm:px-5">
+                                        @if ($field->value==='user')
+                                            @php
+                                                $relation = $field->value;
+                                            @endphp
+                                            {{ $item }}<br>
+                                        @endif
                                         {{ $item->{$field->value}->name??$item->{$field->name} }}
                                     </td>
                                 @elseif ($field->type === 'image')
