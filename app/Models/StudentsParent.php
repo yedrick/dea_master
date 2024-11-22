@@ -29,7 +29,7 @@ class StudentsParent extends Model{
         return $this->belongsTo(Student::class);
     }
 
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
     
