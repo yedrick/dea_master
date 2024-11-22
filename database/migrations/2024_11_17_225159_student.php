@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
+
         Schema::create('students_tutors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
