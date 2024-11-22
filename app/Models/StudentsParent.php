@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentsParent extends Model{
 
     protected $table = 'students_parents';
-    protected $with = ['user'];
+    protected $with = [];
     public $timestamps=true;
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
