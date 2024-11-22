@@ -59,6 +59,9 @@ class NodeCommand extends CrudCommand{
             $node=$this->createNode($table);
             $this->getColumnsNode($node);
         }
+        $this->runCommands('config:clear');
+        // ejecutamos seeders
+        $this->runCommands('db:seed');
     }
 
 
