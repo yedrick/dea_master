@@ -56,6 +56,22 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('fields')->onDelete('cascade');
         });
 
+        Schema::create('filters',function(Blueprint $table){
+            $table->increments('id');
+            $table->integer('parent_id')->unsigned();
+            $table->string('name');
+            $table->string('label');
+            $table->string('operator');
+            $table->string('field_name');
+            $table->string('field_relation')->nullable();
+            $table->string('value')->nullable();
+            $table->string('type')->default('text');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade');
+        });
+
+
         // contry table //
         Schema::create('country', function (Blueprint $table) {
             $table->id();

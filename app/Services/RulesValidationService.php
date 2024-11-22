@@ -20,10 +20,12 @@ class RulesValidationService {
         }
 
         $rules = $modelClass::$$rulesProperty;
+        \Log::info('Rules: '.json_encode($rules));
 
         $validator = $this->validationFactory->make($data, $rules);
 
         if ($validator->fails()) {
+            \Log::info('Errors: '.json_encode($validator->errors()));
             return [
                 'status' => false,
                 'errors' => $validator->errors()

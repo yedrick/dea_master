@@ -100,7 +100,7 @@ class NodeCommand extends CrudCommand{
     }
 
     private function getDisplayItem($threshold, $name): string {
-        return $threshold <= 0 || in_array($name, ['created_at', 'updated_at', 'deleted_at']) ? 'none' : 'show';
+        return in_array($name, ['created_at', 'updated_at', 'deleted_at','id']) ? 'none' : 'show';
     }
 
     private function handleSpecialFieldTypes(Field $field,$type,$option): void {

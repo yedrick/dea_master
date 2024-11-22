@@ -56,6 +56,7 @@ class CrudCommand extends Command {
         $ignoreTables = [
             'migrations', 'sessions', 'oauth_auth_codes', 'oauth_access_tokens', 'oauth_refresh_tokens', 'oauth_clients',
             'oauth_personal_access_clients', 'personal_access_tokens','failed_jobs','cache','cache_locks','job_batches','jobs','password_reset_tokens',
+            'roles','permissions','model_has_permissions','model_has_roles','role_has_permissions'
         ];
         $tables = [];
         $table_schema = Schema::getTables();

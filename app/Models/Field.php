@@ -12,11 +12,10 @@ class Field extends Model{
     public $timestamps=true;
 
         /* Create rules */
-    public static $rules_create = array(
+    public static $rules_created = array(
 	);
 		/* Updating rules */
-    public static $rules_edit = array(
-        "id"=>"required",
+    public static $rules_updated = array(
 
     );
         /* Read rules */
@@ -36,6 +35,9 @@ class Field extends Model{
         return $this->belongsTo(Node::class,'parent_id');
     }
 
+    public function options() {
+        return $this->hasMany(FieldOption::class, 'parent_id');
+    }
 
     // Definir relaciones y atributos aquí
 

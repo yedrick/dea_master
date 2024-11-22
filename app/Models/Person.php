@@ -10,21 +10,17 @@ class Person extends Model{
     protected $with = [];
     public $timestamps=true;
 
+    //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
+    // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
+
         /* Create rules */
-    public static $rules_create = array(
+    public static $rules_created = array(
 	);
 		/* Updating rules */
-    public static $rules_edit = array(
-        "id"=>"required",
-
+    public static $rules_updated = array(
     );
-        /* Read rules */
-    public static $rules_read = array(
-        "id"=>"required",
-    );
-        /* Delete rules */
+    /* Delete rules falta */
     public static $rules_remove = array(
-        "id"=>"required",
     );
 
 

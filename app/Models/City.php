@@ -10,33 +10,20 @@ class City extends Model{
     protected $with = [];
     public $timestamps=true;
 
-    // public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
+    //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
     // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
 
         /* Create rules */
-    public static $rules_create = array(
-        "name"=>"required|string|max:255",
-        "state_id"=>"required|integer",
+    public static $rules_created = array(
 	);
 		/* Updating rules */
-    public static $rules_edit = array(
-        "id"=>"required",
-
+    public static $rules_updated = array(
     );
-        /* Read rules */
-    public static $rules_read = array(
-        "id"=>"required",
-    );
-        /* Delete rules */
+    /* Delete rules falta */
     public static $rules_remove = array(
-        "id"=>"required",
     );
 
 
     // Definir relaciones y atributos aquí
-
-    public function country() {
-        return $this->belongsTo(Country::class, 'country_id');
-    }
 
 }

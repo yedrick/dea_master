@@ -18,13 +18,13 @@ class TypeValidation{
     }
 
     public function hasTypeValidation($model,$type,$request){
-        $type = $this->type[$type];
-        if (property_exists($model, $type)) {
+        $type_property = $this->type[$type];
+        if (property_exists($model, $type_property)) {
             Log::info('formRequest');
             return $this->formRequest->validate($model, $request->all());
         } else {
             Log::info('rulesValidation');
-            return $this->rulesValidation->validate($model, $request->all(), 'create');
+            return $this->rulesValidation->validate($model, $request->all(),$type);
         }
     }
 }
