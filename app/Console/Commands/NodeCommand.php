@@ -61,7 +61,9 @@ class NodeCommand extends CrudCommand{
         }
         $this->runCommands('config:clear');
         // ejecutamos seeders
+        $this->info('Run Seeders');
         $this->runCommands('db:seed');
+        $this->info('End Command');
     }
 
 
