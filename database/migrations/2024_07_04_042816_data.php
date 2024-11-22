@@ -71,51 +71,12 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade');
         });
 
-
-        // contry table //
-        Schema::create('country', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            // $table->rememberToken();
-            $table->timestamps();
-        });
-        //city
-        Schema::create('city', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('country_id');
-            $table->foreign('country_id')->references('id')->on('country');
-            // $table->rememberToken();
-            $table->timestamps();
-        });
-        // persona
-        Schema::create('persons', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->date('birthdate');
-            $table->integer('ci')->default('0');
-            $table->enum('sex',['M','F'])->default('M');
-            $table->boolean('status')->default(1);
-            // country_id
-            $table->unsignedBigInteger('contry_id');
-            $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')->references('id')->on('city');
-            $table->foreign('contry_id')->references('id')->on('country');
-            $table->rememberToken();
-            $table->timestamps();
-        });
     }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void{
-        //
-        Schema::dropIfExists('country');
-        Schema::dropIfExists('city');
-        Schema::dropIfExists('person');
+        
     }
 };

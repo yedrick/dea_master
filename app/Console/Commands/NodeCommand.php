@@ -75,6 +75,7 @@ class NodeCommand extends CrudCommand{
                 $this->getRelationColumn($table, $column['name']);
             }
             $relation = $this->relations[$column['name']] ?? null;
+            // $value_relation=$relation['table']!=null?$relation['table']: null;
             $field=Field::create([
                 'parent_id' => $node->id,
                 'order' => $key + 1,
@@ -88,7 +89,7 @@ class NodeCommand extends CrudCommand{
                 'label' => "field.{$column['name']}",
                 'placeholder' => null,
                 'relation_cond' => $relation['model_relation'] ?? null,
-                'value' => Str::singular($relation['table']) ?? null,
+                'value' => $relation['table'] ?? null,
             ]);
             $this->handleSpecialFieldTypes($field,$column['type_name'],$column['type']);
             return $field;
@@ -139,7 +140,7 @@ class NodeCommand extends CrudCommand{
             collect($columns)->mapWithKeys(function ($column) {
                 return [
                     $column['columns'][0] => [
-                        'table' => $column['foreign_table'],
+                        'table' => Str::singular($column['foreign_table']),
                         'model_relation' => $this->getDirModel($column['foreign_table'])
                     ]
                 ];
