@@ -88,7 +88,7 @@ class NodeCommand extends CrudCommand{
                 'label' => "field.{$column['name']}",
                 'placeholder' => null,
                 'relation_cond' => $relation['model_relation'] ?? null,
-                'value' => $relation['table'] ?? null,
+                'value' => Str::singular($relation['table']) ?? null,
             ]);
             $this->handleSpecialFieldTypes($field,$column['type_name'],$column['type']);
             return $field;
