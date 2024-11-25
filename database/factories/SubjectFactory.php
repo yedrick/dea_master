@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subject>
  */
-class SubjectFactory extends Factory
-{
+class SubjectFactory extends Factory {
     /**
      * Define the model's default state.
      *
@@ -17,8 +16,7 @@ class SubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-            'name' => $this->faker->word, // Genera un nombre aleatorio
+            'name' => $this->faker->word,
         ];
     }
 }

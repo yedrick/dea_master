@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Level;
 use App\Models\User;
 use App\Models\Subject;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -96,9 +97,49 @@ class DatabaseSeeder extends Seeder
     $user3 = User::find(4);
     $user3->assignRole($profesor);
 
+    // ceracion de level a ,b , c
+    $levels = [
+        ['name' => 'primaria'],
+        ['name' => 'secundaria'],
+        ['name' => 'preparatoria'],
+        ['name' => 'universidad'],
+    ];
+    Level::insert($levels);
+
+    // creacion de grades
+    $grades = [
+        ['name' => '1'],
+        ['name' => '2'],
+        ['name' => '3'],
+        ['name' => '4'],
+        ['name' => '5'],
+        ['name' => '6'],
+        ['name' => '7'],
+        ['name' => '8'],
+        ['name' => '9'],
+        ['name' => '10'],
+        ['name' => '11'],
+        ['name' => '12'],
+    ];
+    \App\Models\Grade::insert($grades);
+
+    $courses=[
+        ['name'=>'A'],
+        ['name'=>'B'],
+        ['name'=>'C'],
+        ['name'=>'D'],
+        ['name'=>'E'],
+        ['name'=>'F']
+    ];
+    \App\Models\Course::insert($courses);
+
+    $quarters=[
+    ];
+
+
     $this->call([
         SubjectSeeder::class,
     ]);
-    
+
     }
 }
