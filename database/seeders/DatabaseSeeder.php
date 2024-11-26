@@ -97,6 +97,12 @@ class DatabaseSeeder extends Seeder
     $user3 = User::find(4);
     $user3->assignRole($profesor);
 
+    $user5 = User::find(5);
+    $user5->assignRole($padre);
+
+    $user6 = User::find(6);
+    $user6->assignRole($padre);
+
     // ceracion de level a ,b , c
     $levels = [
         ['name' => 'inicial'],
