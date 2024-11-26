@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model{
 
-    protected $table = 'level';
+    protected $table = 'levels';
     protected $with = [];
     public $timestamps=true;
 

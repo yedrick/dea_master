@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model{
 
-    protected $table = 'school';
+    protected $table = 'schools';
     protected $with = [];
     public $timestamps=true;
 

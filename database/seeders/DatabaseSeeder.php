@@ -99,43 +99,61 @@ class DatabaseSeeder extends Seeder
 
     // ceracion de level a ,b , c
     $levels = [
+        ['name' => 'inicial'],
         ['name' => 'primaria'],
         ['name' => 'secundaria'],
-        ['name' => 'preparatoria'],
-        ['name' => 'universidad'],
     ];
     Level::insert($levels);
 
     // creacion de grades
     $grades = [
-        ['name' => '1'],
-        ['name' => '2'],
-        ['name' => '3'],
-        ['name' => '4'],
-        ['name' => '5'],
-        ['name' => '6'],
-        ['name' => '7'],
-        ['name' => '8'],
-        ['name' => '9'],
-        ['name' => '10'],
-        ['name' => '11'],
-        ['name' => '12'],
+        ['name' => '1','level_id'=>1],
+        ['name' => '2','level_id'=>1],
+        // primaria
+        ['name' => '1' ,'level_id'=>2],
+        ['name' => '2','level_id'=>2],
+        ['name' => '3','level_id'=>2],
+        ['name' => '4','level_id'=>2],
+        ['name' => '5','level_id'=>2],
+        ['name' => '6','level_id'=>2],
+        //secundaria
+        ['name' => '1','level_id'=>3],
+        ['name' => '2','level_id'=>3],
+        ['name' => '3','level_id'=>3],
+        ['name' => '4','level_id'=>3],
+        ['name' => '5','level_id'=>3],
+        ['name' => '6','level_id'=>3],
+
     ];
     \App\Models\Grade::insert($grades);
 
     $courses=[
-        ['name'=>'A'],
-        ['name'=>'B'],
-        ['name'=>'C'],
-        ['name'=>'D'],
-        ['name'=>'E'],
-        ['name'=>'F']
+        // inicial
+        ['name'=>'A','grade_id'=>1],
+        ['name'=>'B','grade_id'=>1],
+        ['name'=>'C','grade_id'=>1],
+
+        ['name'=>'B','grade_id'=>2],
+        ['name'=>'A','grade_id'=>2],
+        ['name'=>'C','grade_id'=>2],
+        // primaria
+        ['name'=>'A','grade_id'=>3],
+        ['name'=>'B','grade_id'=>3],
+        ['name'=>'C','grade_id'=>3],
+        ['name'=>'D','grade_id'=>3],
+
+        ['name'=>'A','grade_id'=>4],
+        ['name'=>'B','grade_id'=>4],
+        ['name'=>'C','grade_id'=>4],
+        ['name'=>'D','grade_id'=>4],
+
+        ['name'=>'A','grade_id'=>5],
+        ['name'=>'B','grade_id'=>5],
+        ['name'=>'C','grade_id'=>5],
+        ['name'=>'D','grade_id'=>5],
+
     ];
     \App\Models\Course::insert($courses);
-
-    $quarters=[
-    ];
-
 
     $this->call([
         SubjectSeeder::class,

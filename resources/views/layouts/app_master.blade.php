@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" />
     </head>
     <body x-data="{isShowPopper :false}" class="is-header-blur" x-bind="$store.global.documentBody">
         <div id="notify-container" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
@@ -29,5 +30,9 @@
         </div>
         <div id="x-teleport-target"></div>
         <script> window.addEventListener("DOMContentLoaded", () => Alpine.start());</script>
+        <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+        <script src="{{ asset('js/sweet-alert.js') }}"></script>
+        {{-- inserto js --}}
+        @stack('scripts')
     </body>
 </html>

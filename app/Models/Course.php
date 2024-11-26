@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model{
 
-    protected $table = 'course';
+    protected $table = 'courses';
     protected $with = [];
     public $timestamps=true;
 
@@ -24,6 +24,18 @@ class Course extends Model{
     );
 
 
-    // Definir relaciones y atributos aquí
+    // scope status true
+    public function scopeStatus($query){
+        return $query->where('status',true);
+    }
 
+    // Definir relaciones y atributos aquí
+    public function grade() {
+        return $this->belongsTo(Grade::class);
+    }
+
+    // ceramos una tributo para el nombre del curso completo
+    public function getFullNameAttribute(){
+        return $this->grade->name.' '.$this->grade->level->name.' '.$this->name;
+    }
 }

@@ -9,6 +9,11 @@ class Student extends Model{
     protected $table = 'students';
     protected $with = [];
     public $timestamps=true;
+    public $fillable = [
+        'first_name','last_name',
+        'ci_number','sex','phone',
+        'birthdate'
+    ];
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
     // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
@@ -28,5 +33,5 @@ class Student extends Model{
     public function getNameAttribute(){
        return $this->first_name.' '.$this->last_name;
     }
-    
+
 }

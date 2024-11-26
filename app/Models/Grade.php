@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model{
 
-    protected $table = 'grade';
+    protected $table = 'grades';
     protected $with = [];
     public $timestamps=true;
 
@@ -25,5 +25,7 @@ class Grade extends Model{
 
 
     // Definir relaciones y atributos aquí
-
+    public function level() {
+        return $this->belongsTo(Level::class);
+    }
 }
