@@ -17,9 +17,16 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->timestamps();
+        });
+
+        // realcion con courses
+        Schema::create('teacher_courses', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses');
-
             $table->timestamps();
         });
     }
@@ -27,8 +34,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('teachers');
+        Schema::dropIfExists('teacher_courses');
     }
 };

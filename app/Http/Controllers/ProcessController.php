@@ -96,5 +96,33 @@ class ProcessController extends Controller {
         return redirect('/import-export')->with('message_success', 'Datos importados correctamente');
     }
 
+    // creascion del teacher
+    public function registerTeacher(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required',
+            'ci_number' => 'required|unique:users,ci_number',
+            'subject_id' => 'required',
+            'courses' => 'required|array',
+        ]);
+        \Log::info('Registro de profesor');
+        \Log::info($request->all());
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->ci_number = $request->ci_number;
+        $user->password = bcrypt($request->ci_number);
+        $user->save();
+        $user->assignRole('profesor');
+        // creamos teacher
+        $teacher = $user->teacher()->create(['subject_id' => $request->subject_id]);
+        // asignamos los cursos al profesor
+        $teacher->courses()->sync($request->courses);
+        return redirect('/form-teacher')->with('message_success', 'Profesor registrado correctamente');
+
+
+    }
 
 }
