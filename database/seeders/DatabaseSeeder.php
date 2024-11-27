@@ -243,9 +243,10 @@ class DatabaseSeeder extends Seeder
     \App\Models\Quarter::insert($quarters);
 
     $teachers=[
-        ['user_id'=>7,'subject_id'=>1,'course_id'=>1]
+        ['user_id'=>7,'subject_id'=>1]
     ];
     \App\Models\Teacher::insert($teachers);
+
 
     // $this->call([
     //     SubjectSeeder::class,
