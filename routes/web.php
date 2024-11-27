@@ -17,6 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/import-export', [MainController::class, 'showImportExportExcel']);
+    Route::get('/export-student', [ProcessController::class,'exportData']);
+    Route::post('/import', [ProcessController::class,'importData']);
+
+    Route::get('/form-student', [MainController::class, 'showFormRegisterStudents']);
+    Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
 });
 
 Route::prefix('ajax')->group(function () {
@@ -24,14 +31,7 @@ Route::prefix('ajax')->group(function () {
     Route::post('/save-registration', [ProcessController::class,'registerParentAndStudents']);
 });
 
-Route::get('/import-export', [MainController::class, 'showImportExportExcel']);
-Route::get('/export-student', [ProcessController::class,'exportData']);
-Route::post('/import', [ProcessController::class,'importData']);
 
-
-Route::get('/formulario', [MainController::class, 'showFormRegisterStudents']);
-
-Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
 
 Route::get('/imports', function () {
     return view('imports');
