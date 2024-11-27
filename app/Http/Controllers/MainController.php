@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class MainController extends Controller {
@@ -13,4 +14,17 @@ class MainController extends Controller {
         $courses = Course::status()->get();
         return view('formulario',['courses'=>$courses]);
     }
+    public function showFormRegisterProfesores() {
+        // obterndremos los activos en cursos
+        $subjects = Subject::get();
+
+        $courses = Course::get();
+        return view('formularioProfesor',['courses'=>$courses, 'subjects'=>$subjects]);
+    }
+
+   
+
+   
+
+    
 }

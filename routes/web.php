@@ -26,13 +26,7 @@ Route::prefix('ajax')->group(function () {
 
 Route::get('/formulario', [MainController::class, 'showFormRegisterStudents']);
 
-Route::get('/formulario2', function () {
-    return view('formulario2');
-});
-
-Route::get('/formularioProfesor', function () {
-    return view('formularioProfesor');
-});
+Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
 
 
 // Route::get('/formulario', function () {

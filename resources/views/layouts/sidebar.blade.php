@@ -293,48 +293,7 @@
                   Profesores 
                 </a>
             </li> 
-            <li>
-                <a x-data="navLink" href="{{url('model-list/level')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Niveles   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/grade')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Grados
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/course')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Cursos   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/quarter')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Trimestre   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/subject')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                    Materias   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/course-subject')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                    Curso por materia 
-                </a>
-            </li>
+            
             <li>
                 <a x-data="navLink" href="{{url('model-list/')}}" 
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
@@ -357,97 +316,6 @@
                 </a>
             </li>
           </ul>
-          <div class="h-px mx-4 my-3 bg-slate-200"></div>
-          <ul class="flex flex-col flex-1 px-4 font-inter">
-            <li x-data="accordionItem('menu-item-1')">
-              <a :class="expanded ? 'text-slate-800 font-semibold' : 'text-slate-600  hover:text-slate-800 '"
-                @click="expanded = !expanded"
-                class="flex items-center justify-between py-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out"
-                href="javascript:void(0);">
-                <span>Parametros</span>
-                <svg :class="expanded && 'rotate-90'" xmlns="http://www.w3.org/2000/svg"
-                  class="transition-transform ease-in-out size-4 text-slate-400" fill="none" viewbox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <ul x-collapse="" x-show="expanded">
-                <li>
-                  <a x-data="navLink" href="{{url('countries')}}"
-                    :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                      <span>Paises</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('cities') }}"
-                      :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Ciudades</span>
-                      </div>
-                    </a>
-                  </li>
-                <li>
-                    <a x-data="navLink" href="dashboards-crypto-1.html"
-                      :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Zonas</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="dashboards-crypto-1.html"
-                      :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Estados Civiles</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="dashboards-crypto-1.html"
-                      :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Estado de Menbresias</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                  <a x-data="navLink" href="dashboards-crypto-2.html"
-                    :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                      <span>MInisterios</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="dashboards-crypto-1.html"
-                      :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Profeciones</span>
-                      </div>
-                    </a>
-                </li>
-
-              </ul>
-            </li>
-          </ul>
-          {{-- <div class="h-px mx-4 my-3 bg-slate-200"></div> --}}
-        </div>
       </div>
     </div>
   </div>
