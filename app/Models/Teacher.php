@@ -25,5 +25,8 @@ class Teacher extends Model{
 
 
     // Definir relaciones y atributos aquí
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 
 }

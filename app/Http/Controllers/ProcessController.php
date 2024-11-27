@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomExportReport;
+use App\Imports\StudentsImport;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\ReportExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProcessController extends Controller {
     // obtener el padre  en user
@@ -52,4 +56,45 @@ class ProcessController extends Controller {
         Log::info('Estudiantes: '.json_encode($students));
 
     }
+
+    // exportar data en excel
+    public function exportData() {
+        $titles = ['ID','Nombre','Apellido','Nota','Descripcion'];
+        $students = Student::get();
+        $data = [];
+        foreach ($students as $student) {
+            $data[] = [$student->id, $student->first_name, $student->last_name, '0', '-'];
+        }
+        // vlaidamos q existan estudiantes
+        if(count($data)==0) return redirect('/import-export')->with('message_error', 'No hay estudiantes para exportar');
+        $excel= new ReportExcel();
+        $response=$excel->generateExcel($titles,$data,'estudiantes','estudiantes');
+        return $response;
+    }
+
+    // importar data en excel
+    public function importData(Request $request) {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+            'course_id'=>'required',
+            'subject_id'=>'required',
+            'quarter_id'=>'required',
+        ]);
+        // $file = $request->file('file');
+        \Log::info('Importar data en excel');
+        \Log::info($request->all());
+
+        // uptenemos el user logueado
+        $user = auth()->user();
+        // verificamso si el usuario es un profesor
+        if(!$user->hasRole('profesor')) return redirect('/import-export')->with('message_error', 'No tienes permisos para realizar esta acción');
+        $teacher = $user->teacher;
+        \Log::info('Profesor: '.json_encode($teacher));
+        if(!$teacher) return redirect('/import-export')->with('message_error', 'No tienes  un profesor asiganado');
+        Excel::import(new StudentsImport($request->course_id, $request->subject_id, $request->quarter_id,$teacher->id), $request->file('file'));
+
+        return redirect('/import-export')->with('message_success', 'Datos importados correctamente');
+    }
+
+
 }

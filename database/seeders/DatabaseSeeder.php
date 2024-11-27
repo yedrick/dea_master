@@ -103,6 +103,11 @@ class DatabaseSeeder extends Seeder
     $user6 = User::find(6);
     $user6->assignRole($padre);
 
+    $user7 = User::find(7);
+    $user7->assignRole($profesor);
+
+
+
     // ceracion de level a ,b , c
     $levels = [
         ['name' => 'inicial'],
@@ -140,7 +145,7 @@ class DatabaseSeeder extends Seeder
 
         ['name'=>'B','grade_id'=>2],
         ['name'=>'A','grade_id'=>2],
-    
+
         // primaria
 
         ['name'=>'A','grade_id'=>3],
@@ -237,9 +242,14 @@ class DatabaseSeeder extends Seeder
     ];
     \App\Models\Quarter::insert($quarters);
 
-    $this->call([
-        SubjectSeeder::class,
-    ]);
+    $teachers=[
+        ['user_id'=>7,'subject_id'=>1,'course_id'=>1]
+    ];
+    \App\Models\Teacher::insert($teachers);
+
+    // $this->call([
+    //     SubjectSeeder::class,
+    // ]);
 
     }
 }

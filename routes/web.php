@@ -24,6 +24,11 @@ Route::prefix('ajax')->group(function () {
     Route::post('/save-registration', [ProcessController::class,'registerParentAndStudents']);
 });
 
+Route::get('/import-export', [MainController::class, 'showImportExportExcel']);
+Route::get('/export-student', [ProcessController::class,'exportData']);
+Route::post('/import', [ProcessController::class,'importData']);
+
+
 Route::get('/formulario', [MainController::class, 'showFormRegisterStudents']);
 
 Route::get('/formulario2', function () {
@@ -32,6 +37,10 @@ Route::get('/formulario2', function () {
 
 Route::get('/formularioProfesor', function () {
     return view('formularioProfesor');
+});
+
+Route::get('/imports', function () {
+    return view('imports');
 });
 
 

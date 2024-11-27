@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Qualification extends Model{
 
-    protected $table = 'qualification';
+    protected $table = 'qualifications';
     protected $with = [];
     public $timestamps=true;
+    protected $fillable = [
+        'student_id','subject_id','quarter_id','teacher_id',
+        'qualification','description'
+    ];
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
     // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';

@@ -48,4 +48,7 @@ class User extends Authenticatable
 
     // Definir relaciones y atributos aquí
 
+    public function teacher() {
+        return $this->hasOne(Teacher::class);
+    }
 }
