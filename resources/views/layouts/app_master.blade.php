@@ -19,9 +19,9 @@
         <link href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" />
     </head>
     <body x-data="{isShowPopper :false}" class="is-header-blur" x-bind="$store.global.documentBody">
-        <div id="notify-container" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
+        {{-- <div id="notify-container" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;"> --}}
             @include('layouts.notificacion')
-        </div>
+        {{-- </div> --}}
         <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-navy-900" x-cloak="">
             @include('layouts.sidebar')
             @include('layouts.navWeb')
