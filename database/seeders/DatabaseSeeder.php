@@ -137,12 +137,12 @@ class DatabaseSeeder extends Seeder
         // inicial
         ['name'=>'A','grade_id'=>1],
         ['name'=>'B','grade_id'=>1],
-        ['name'=>'C','grade_id'=>1],
 
         ['name'=>'B','grade_id'=>2],
         ['name'=>'A','grade_id'=>2],
-        ['name'=>'C','grade_id'=>2],
+    
         // primaria
+
         ['name'=>'A','grade_id'=>3],
         ['name'=>'B','grade_id'=>3],
         ['name'=>'C','grade_id'=>3],
@@ -158,8 +158,84 @@ class DatabaseSeeder extends Seeder
         ['name'=>'C','grade_id'=>5],
         ['name'=>'D','grade_id'=>5],
 
+        ['name'=>'A','grade_id'=>6],
+        ['name'=>'B','grade_id'=>6],
+        ['name'=>'C','grade_id'=>6],
+        ['name'=>'D','grade_id'=>6],
+
+        ['name'=>'A','grade_id'=>7],
+        ['name'=>'B','grade_id'=>7],
+        ['name'=>'C','grade_id'=>7],
+        ['name'=>'D','grade_id'=>7],
+
+        ['name'=>'A','grade_id'=>8],
+        ['name'=>'B','grade_id'=>8],
+        ['name'=>'C','grade_id'=>8],
+        ['name'=>'D','grade_id'=>8],
+
+        //secundaria
+
+        ['name'=>'A','grade_id'=>9],
+        ['name'=>'B','grade_id'=>9],
+        ['name'=>'C','grade_id'=>9],
+        ['name'=>'D','grade_id'=>9],
+
+        ['name'=>'A','grade_id'=>10],
+        ['name'=>'B','grade_id'=>10],
+        ['name'=>'C','grade_id'=>10],
+        ['name'=>'D','grade_id'=>10],
+
+        ['name'=>'A','grade_id'=>11],
+        ['name'=>'B','grade_id'=>11],
+        ['name'=>'C','grade_id'=>11],
+        ['name'=>'D','grade_id'=>11],
+
+        ['name'=>'A','grade_id'=>12],
+        ['name'=>'B','grade_id'=>12],
+        ['name'=>'C','grade_id'=>12],
+        ['name'=>'D','grade_id'=>12],
+
+        ['name'=>'A','grade_id'=>13],
+        ['name'=>'B','grade_id'=>13],
+        ['name'=>'C','grade_id'=>13],
+        ['name'=>'D','grade_id'=>13],
+
+        ['name'=>'A','grade_id'=>14],
+        ['name'=>'B','grade_id'=>14],
+        ['name'=>'C','grade_id'=>14],
+        ['name'=>'D','grade_id'=>14],
+
     ];
     \App\Models\Course::insert($courses);
+
+    $subjects = [
+        ['name' => 'Desarrollo Personal y Social'],
+        ['name' => 'Lenguaje y Comunicación'],
+        ['name' => 'Matemáticas'],
+        ['name' => 'Ciencias Naturales'],
+        ['name' => 'Ciencias Sociales'],
+        ['name' => 'Educación Musical'],
+        ['name' => 'Psicomotricidad'],
+        ['name' => 'Educación Física'],
+        ['name' => 'Vida Comunitaria y Valores'],
+        ['name' => 'Computación básica'],
+        ['name' => 'Física'],
+        ['name' => 'Química'],
+        ['name' => 'Matematicas'],
+        ['name' => 'Biología'],
+        ['name' => 'Filosofía y Psicología'],
+        ['name' => 'Sociología'],
+        ['name' => 'Filosofía y Ética'],
+        ['name' => 'Robotica'],
+    ];
+    \App\Models\Subject::insert($subjects);
+
+    $quarters = [
+        ['name' => 'Primer Trimestre'],
+        ['name' => 'Segundo Trimestre'],
+        ['name' => 'Tercero Trimestre'],
+    ];
+    \App\Models\Quarter::insert($quarters);
 
     $this->call([
         SubjectSeeder::class,

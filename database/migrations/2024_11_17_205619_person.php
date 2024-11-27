@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('sex',['M','F','Other'])->default('Other');
             $table->string('phone')->nullable();
             $table->date('birthdate');
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->timestamps();
         });
     }

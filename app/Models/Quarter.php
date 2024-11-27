@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quarter extends Model{
 
-    protected $table = 'quarter';
+    protected $table = 'quarters';
     protected $with = [];
     public $timestamps=true;
 
