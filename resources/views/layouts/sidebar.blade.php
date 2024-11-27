@@ -293,7 +293,48 @@
                   Profesores 
                 </a>
             </li> 
-            
+            <li>
+                <a x-data="navLink" href="{{url('model-list/level')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Niveles   
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('model-list/grade')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Grados
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('model-list/course')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Cursos   
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('model-list/quarter')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Trimestre   
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('model-list/subject')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                    Materias   
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('model-list/course-subject')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                    Curso por materia 
+                </a>
+            </li>
             <li>
                 <a x-data="navLink" href="{{url('model-list/')}}" 
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
@@ -316,6 +357,8 @@
                 </a>
             </li>
           </ul>
+          
+        </div>
       </div>
     </div>
   </div>
