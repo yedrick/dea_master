@@ -27,6 +27,7 @@ class ProcessController extends Controller {
     // registro de padre y studensts
     public function registerParentAndStudents(Request $request) {
         Log::info('Registro de padre y estudiantes');
+        Log::info($request->all());
         $data = $request->all();
         $padre = $data['parent'];
         $students = $data['children'];
@@ -47,7 +48,7 @@ class ProcessController extends Controller {
         $user->assignRole('padre');
         // registro de los estudiantes
         foreach ($students as $student) {
-            $course = $student['course'];
+           // $course = $student['course'];
             $newStudent = Student::create($student);
             // asignamos el curso al estudiante
             // dd($course);

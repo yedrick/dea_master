@@ -12,7 +12,7 @@ class Student extends Model{
     public $fillable = [
         'first_name','last_name',
         'ci_number','sex','phone',
-        'birthdate'
+        'birthdate','course_id'
     ];
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
