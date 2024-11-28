@@ -5,4 +5,5 @@ return [
     Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
     Maatwebsite\Excel\ExcelServiceProvider::class,
+    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 ];

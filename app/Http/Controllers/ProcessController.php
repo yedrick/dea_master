@@ -122,8 +122,19 @@ class ProcessController extends Controller {
         // asignamos los cursos al profesor
         $teacher->courses()->sync($request->courses);
         return redirect('/form-teacher')->with('message_success', 'Profesor registrado correctamente');
-
-
     }
 
+    //genracion de pdf en credenciales
+    public function generateCredencial() {
+        $students = Student::get();
+        $pdf = \PDF::loadView('pdf.credencial', ['students' => $students]);
+        return $pdf->download('credenciales.pdf');
+    }
+
+    //genracion de pdf
+    public function generateQr() {
+        $students = Student::get();
+        $pdf = \PDF::loadView('pdf.qr', ['students' => $students]);
+        return $pdf->download('qrs.pdf');
+    }
 }
