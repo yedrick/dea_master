@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
 
     Route::post('/save-teacher', [ProcessController::class, 'registerTeacher']);
+
+    Route::get('/list-student', [MainController::class, 'showTableEstudentes'])->name('estudiantes.show');
 });
 
 Route::prefix('ajax')->group(function () {

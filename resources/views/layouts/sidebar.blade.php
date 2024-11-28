@@ -272,83 +272,63 @@
         <div x-data="{expandedItem:null}" class="h-[calc(100%-4.5rem)] overflow-x-hidden pb-6"
           x-init="$el._x_simplebar = new SimpleBar($el);">
           <ul class="flex flex-col flex-1 px-4 font-inter">
-          <li>
+          @if (auth()->user()->hasRole('admin'))
+            <li>
+                <a x-data="navLink" href="{{url('form-teacher')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Registro de Profesores    
+                </a>
+            </li>
+            <li>
+                <a x-data="navLink" href="{{url('form-student')}}" 
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Registro de Información   
+                </a>
+            </li>
+            
+            <li>
                 <a x-data="navLink" href="{{url('model-list/school')}}" 
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
                   class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Escuelas  
+                  Lista Escuelas  
                 </a>
             </li> 
             <li>
                 <a x-data="navLink" href="{{url('model-list/user')}}"
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
                   class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Usuarios 
+                  Lista Usuarios 
                 </a>
             </li>   
             <li>
                 <a x-data="navLink" href="{{url('model-list/teacher')}}" 
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
                   class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Profesores 
+                  Lista Profesores 
                 </a>
             </li> 
+            @endif
+            @if (auth()->user()->hasRole('admin')||auth()->user()->hasRole('profesor'))   
             <li>
-                <a x-data="navLink" href="{{url('model-list/level')}}" 
+                <a x-data="navLink" href="{{url('list-student')}}"
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
                   class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Niveles   
+                  Lista Estudiantes
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasRole('admin')||auth()->user()->hasRole('profesor')) 
             <li>
-                <a x-data="navLink" href="{{url('model-list/grade')}}" 
+                <a x-data="navLink" href="{{url('import-export')}}" 
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
                   class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Grados
+                    Registro de Calificaciones    
                 </a>
             </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/course')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Cursos   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/quarter')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Trimestre   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/subject')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                    Materias   
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/course-subject')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                    Curso por materia 
-                </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{url('model-list/')}}" 
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Registro de Información  
-                </a>
-            </li>        
-            <li>
-                <a x-data="navLink" href="{{url('model-list/student')}}"
-                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Estudiantes
-                </a>
-            </li>
+            @endif
+            @if (auth()->user()->hasRole('admin')||auth()->user()->hasRole('padre')) 
             <li>
                 <a x-data="navLink" href="{{url('model-list/qualification')}}"
                   :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
@@ -356,6 +336,25 @@
                   Calificaciones 
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasRole('subadmin')) 
+            <li>
+                <a x-data="navLink" href="{{url('model-list/qualification')}}"
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Registro de Asitencias  
+                </a>
+            </li>
+            @endif
+            @if (auth()->user()->hasRole('admin')||auth()->user()->hasRole('subadmin')||auth()->user()->hasRole('padre')) 
+            <li>
+                <a x-data="navLink" href="{{url('model-list/qualification')}}"
+                  :class="isActive ? 'font-medium text-primary' : 'text-slate-600 hover:text-slate-900'"
+                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                  Lista de Asitencias  
+                </a>
+            </li>
+            @endif
           </ul>
           
         </div>

@@ -29,8 +29,9 @@ class MainController extends Controller {
         return view('formularioProfesor',['courses'=>$courses, 'subjects'=>$subjects]);
     }
 
-
-
+    public function showTableEstudentes() {
+        return view('listadoEstudiante');
+    }
 
 
 

@@ -29,5 +29,9 @@ class Qualification extends Model{
 
 
     // Definir relaciones y atributos aquí
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
+
 
 }
