@@ -35,7 +35,9 @@ Route::prefix('ajax')->group(function () {
     Route::post('/save-registration', [ProcessController::class,'registerParentAndStudents']);
 });
 
-
+Route::get('pdf-credential', [ProcessController::class, 'generateCredencial']);
+// Route::get('pdf-credential/{id}', [ProcessController::class, 'generateCredencial']);
+Route::get('pdf-qr', [ProcessController::class, 'generateQr']);
 
 Route::get('/imports', function () {
     return view('imports');
