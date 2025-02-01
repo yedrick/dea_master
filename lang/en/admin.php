@@ -4,5 +4,15 @@ return [
     'select' => 'Select',
     'excel' => 'Excel',
     'show'=>'Ver tabla',
-    'none' => 'no se muestra',
+    'none' => 'No se muestra',
+    'M' => 'Masculino',
+    'F' => 'Femenino',
+    'Visitante' => 'Visitante',
+    'Creyente' => 'Creyente',
+    'Bautismo' => 'Bautismo',
+    'Transferencia' => 'Transferencia',
+    'Ninguno' => 'Ninguno',
+    'Si' => 'Si',
+    'No' => 'No',
 ];
+

@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseSubject extends Model{
+class Profession extends Model{
 
-    protected $table = 'course_subject';
+    protected $table = 'professions';
     protected $with = [];
     public $timestamps=true;
 
-    //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
-    // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
-
-        /* Create rules */
+    /* Create rules */
     public static $rules_created = array(
-	);
-		/* Updating rules */
+        'name' => 'required|string|max:255|unique:professions,name',
+    );
+        /* Updating rules */
     public static $rules_updated = array(
+        'name' => 'required|string|max:255',
     );
     /* Delete rules falta */
     public static $rules_remove = array(
+        "id"=>"required",
     );
 
 

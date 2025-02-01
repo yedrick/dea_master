@@ -5,6 +5,11 @@ use App\Http\Controllers\ProcessController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+
+require __DIR__.'/node.php';
+
+require __DIR__.'/auth.php';
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -17,16 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get('/import-export', [MainController::class, 'showImportExportExcel']);
     Route::get('/export-student', [ProcessController::class,'exportData']);
     Route::post('/import', [ProcessController::class,'importData']);
-
     Route::get('/form-student', [MainController::class, 'showFormRegisterStudents']);
     Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
-
     Route::post('/save-teacher', [ProcessController::class, 'registerTeacher']);
-
     Route::get('/list-student', [MainController::class, 'showTableEstudentes'])->name('estudiantes.show');
 });
 
@@ -43,11 +44,18 @@ Route::get('/imports', function () {
     return view('imports');
 });
 
+Route::get('register-young', [ProcessController::class, 'showFormRegisterYoung']);
+Route::post('register-young', [ProcessController::class, 'registerYoung']);
 
-// Route::get('/formulario', function () {
-//     return view('formulario');
-// });
 
-require __DIR__.'/node.php';
+Route::get('/loginImage', function () {
+    return view('loginImage');
+});
+Route::get('/score', function () {
+    return view('score');
+});
+Route::get('/form', function () {
+    return view('form');
+});
 
-require __DIR__.'/auth.php';
+

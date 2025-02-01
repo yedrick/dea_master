@@ -6,7 +6,7 @@
     <title>Credencial Escolar</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background-color: #f5f5f5;
             display: flex;
             justify-content: center;
@@ -17,7 +17,7 @@
         .card {
             width: 600px;
             background-image: url('imagenes/CREDENCIAL.jpg');
-         
+
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;

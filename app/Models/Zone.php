@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model{
+class Zone extends Model{
 
-    protected $table = 'teachers';
+    protected $table = 'zones';
     protected $with = [];
     public $timestamps=true;
-    protected $fillable = [
-        'user_id','subject_id'
-    ];
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
     // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
@@ -28,12 +25,5 @@ class Teacher extends Model{
 
 
     // Definir relaciones y atributos aquí
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function courses() {
-        return $this->belongsToMany(Course::class, 'teacher_courses');
-    }
 
 }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentsTutor extends Model{
+class Role extends Model{
 
-    protected $table = 'students_tutors';
+    protected $table = 'role';
     protected $with = [];
     public $timestamps=true;
 
@@ -25,12 +25,5 @@ class StudentsTutor extends Model{
 
 
     // Definir relaciones y atributos aquí
-    public function student(){
-        return $this->belongsTo(Student::class);
-    }
 
-    public function users(){
-        return $this->belongsTo(User::class);
-    }
-    
 }

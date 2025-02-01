@@ -14,6 +14,7 @@ use App\Models\Node;
 use App\Services\ColumnTypeMap;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class NodeCommand extends CrudCommand{
 
@@ -81,6 +82,11 @@ class NodeCommand extends CrudCommand{
             }
             $relation = $this->relations[$column['name']] ?? null;
             // $value_relation=$relation['table']!=null?$relation['table']: null;
+            $required=$column['nullable'] === 1 ? 0 : 1;
+            \Log::info('nullable: '.$column['nullable']);
+            if($node->name == 'field'){
+                $required=0;
+            }
             $field=Field::create([
                 'parent_id' => $node->id,
                 'order' => $key + 1,
@@ -90,7 +96,7 @@ class NodeCommand extends CrudCommand{
                 'display_list' => $this->getDisplayList($displayThreshold, $column['name']),
                 'display_item' => $this->getDisplayItem($displayThreshold, $column['name']),
                 'relation' => $isRelation ? 1 : 0,
-                'required' => $column['nullable'] === 1 ? 0 : 1,
+                'required' => $required??0,
                 'label' => "field.{$column['name']}",
                 'placeholder' => null,
                 'relation_cond' => $relation['model_relation'] ?? null,

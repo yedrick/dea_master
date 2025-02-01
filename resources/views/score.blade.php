@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
 </div>
@@ -29,8 +29,8 @@
         </button>
     </form>
 </div>
-</x-guest-layout>
-{{-- <!DOCTYPE html>
+</x-guest-layout> --}}
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -116,4 +116,4 @@
     @stack('scripts')
 </body>
 
-</html> --}}
+</html>

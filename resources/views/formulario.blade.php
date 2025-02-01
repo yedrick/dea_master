@@ -4,7 +4,7 @@
 <main class="main-content w-full px-[var(--margin-x)] pb-8">
     <div class="flex items-center py-5 space-x-4 lg:py-6">
         <div class="flex items-center space-x-1 group">
-            <h2 class="text-2xl font-medium text-slate-700">DASSWORD</h2>
+            <h2 class="text-2xl font-medium text-slate-700">DASHBOARD</h2>
         </div>
     </div>
 
@@ -165,9 +165,9 @@
                                     @foreach ($chunk as $course)
                                         <li class="w-full border-b border-gray-200 dark:border-gray-600">
                                             <div class="flex items-center gap-2 px-3 py-2">
-                                                <input  
-                                                    type="radio"  
-                                                    x-model="child.course" 
+                                                <input
+                                                    type="radio"
+                                                    x-model="child.course"
                                                     :value="{{$course->id}}" :id="course"
                                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-600 dark:border-gray-500">
                                                 <label for="course" class="text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -178,7 +178,7 @@
                                     @endforeach
                                 </ul>
                             @endforeach
-                        </div>     
+                        </div>
                     </div>-->
                 </div>
             </div>
@@ -266,7 +266,7 @@ function parentRegistration() {
         },
 
         addChild() {
-            
+
             this.children.push({
                 first_name: '',
                 last_name: '',

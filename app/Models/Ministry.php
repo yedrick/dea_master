@@ -4,15 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TeacherCourse extends Model{
+class Ministry extends Model{
 
-    protected $table = 'teacher_courses';
+    protected $table = 'ministries';
     protected $with = [];
     public $timestamps=true;
-
-    protected $fillable = [
-        'teacher_id','course_id'
-    ];
 
     //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
     // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';

@@ -1,32 +1,4 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('¿Olvidaste tu contraseña? No hay problema. Solo déjanos tu dirección de correo electrónico y te enviaremos un enlace para restablecer la contraseña, lo que te permitirá elegir una nueva.') }}
-</div>
-
-<!-- Session Status -->
-<x-auth-session-status class="mb-4" :status="session('status')" />
-
-<form method="POST" action="{{ route('password.email') }}">
-    @csrf
-
-    <!-- Email Address -->
-    <div>
-        <x-input-label for="email" :value="__('Email')" />
-        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-            autofocus />
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-    </div>
-
-    <div class="flex items-center justify-end mt-4">
-        <x-primary-button class="w-96 my-4 mx-2 text-white rounded shadow justify-center"
-            style="background: #002860; font-family: Helvetica, Arial, sans-serif">
-            {{ __('Restablecer la Contraseña') }}
-        </x-primary-button>
-    </div>
-</form>
-</x-guest-layout>
-
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -89,9 +61,6 @@
                 </style>
 
                 <!-- Usar la clase de la fuente en el contenedor -->
-                <div class="bg-white border-8 border-blue-900 text-black text-5xl font-[PressStart2P] px-6 py-2 rounded-lg text-center w-auto mx-auto">
-                    1234
-                </div>
 
                     <!-- JUDEA COIN con diferente tipografía y alineado a la derecha -->
                     <div class="text-lg font-extrabold text-blue-500">
@@ -107,6 +76,9 @@
                 <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
                 {{-- <img src="{{ asset('image/12.png') }}" alt="Cerdo Alcancia" class=" w-auto h-48 object-contain mb-4 "> --}}
                     <!-- Contenedor con el contador y JUDEA COIN -->
+                    <div class="bg-white border-8 border-blue-900 text-black text-5xl font-[PressStart2P] px-6 py-2 rounded-lg text-center w-auto mx-auto">
+                        1234
+                    </div>
 
             </div>
 
@@ -124,4 +96,4 @@
     @stack('scripts')
 </body>
 
-</html> --}}
+</html>

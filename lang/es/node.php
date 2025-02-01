@@ -1,21 +1,20 @@
 <?php
 
 return [
-    'unit' => 'Unidad',
-    'botella'=>'botella',
-    'failed-job'=>'failed-job',
-    'field'=>'field',
-    'field-option'=>'field-option',
-    'image-folder'=>'image-folder',
-    'image-size'=>'image-size',
-    'menu'=>'menu',
-    'menu-translation'=>'menu-translation',
-    'node'=>'node',
-    'order'=>'order',
-    'order-detail'=>'order-detail',
-    'password-reset'=>'password-reset',
-    'product'=>'Producto',
-    'purchase'=>'Compra',
-    'user'=>'user',
-    'products' => 'Producto',
+    'peoples' => 'Persona',
+    'countries' => 'Pais',
+    'cities' => 'Ciudad',
+    'zones'=> 'Zona',
+    'memberships' => 'Membresia',
+    'profession' => 'Profesion',
+    'professions' => 'Profesion',
+
+    'membership_status'=>'Estado de Membresia',
+    'civil_statuses'=>'Estado Civil',
+    'role'=>'Rol',
+    'permission'=>'Permiso',
+    'role_permission'=>'Rol y Permiso',
+    'ministries'=>'Ministerio',
+    'users'=>'Usuario',
+
 ];

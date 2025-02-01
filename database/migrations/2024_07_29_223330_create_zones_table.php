@@ -11,22 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schools', function (Blueprint $table) {
+        Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('phone');
-            $table->string('logo');
-            $table->string('gmail');
+            $table->string('details')->nullable();
             $table->timestamps();
-            
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('schools');
+    public function down(): void {
+        Schema::dropIfExists('zones');
     }
 };

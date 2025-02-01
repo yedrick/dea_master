@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CustomExportReport;
+use App\Helpers\Func;
 use App\Imports\StudentsImport;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Youth;
 use App\Services\ReportExcel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -135,6 +137,46 @@ class ProcessController extends Controller {
     public function generateQr() {
         $students = Student::get();
         $pdf = \PDF::loadView('pdf.qr', ['students' => $students]);
-        return $pdf->download('qrs.pdf');
+        // return $pdf->download('qrs.pdf');
+        return $pdf->stream();
     }
+
+    public function showFormRegisterYoung() {
+        $code = mt_rand(100, 200);
+        return view('form',['code'=>$code]);
+    }
+
+    public function registerYoung(Request $request) {
+        // vlaidacion de los datos
+
+        // dd($request->all());
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'birth_date' => 'required',
+            'phone_number' => 'required',
+            'career' => 'nullable|string',
+            'code'=>'required|unique:youths,code',
+            'image' => 'required|image',
+        ]);
+        $image_name=Func::upload($request->file('image'),'youngs',['extension'=>'jpg']);
+        // creacion joven Young
+        $young = new Youth();
+        $young->first_name = $request->first_name;
+        $young->last_name = $request->last_name;
+        $young->birth_date = $request->birth_date;
+        $young->phone_number = $request->phone_number;
+        $young->career = $request->career;
+        $young->discipleship=$request->discipleship;
+        $young->baptized=$request->baptized;
+        $young->code = $request->code;
+        $young->image = $image_name;
+        $young->save();
+        return redirect('register-young')->with('message_success', 'Joven registrado correctamente');
+    }
+
+
+
+
+
 }

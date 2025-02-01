@@ -71,12 +71,15 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade');
         });
 
+
+        
     }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void{
-        
+        //
+       
     }
 };

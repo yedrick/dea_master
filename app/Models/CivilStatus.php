@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model{
+class CivilStatus extends Model{
 
-    protected $table = 'schools';
+    protected $table = 'civil_statuses';
     protected $with = [];
     public $timestamps=true;
 
-    //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
-    // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
-
-        /* Create rules */
+    /* Create rules */
     public static $rules_created = array(
-	);
-		/* Updating rules */
+        'name' => 'required|string|unique:civil_statuses,name',
+    );
+        /* Updating rules */
     public static $rules_updated = array(
+        'name' => 'required|string',
     );
     /* Delete rules falta */
     public static $rules_remove = array(
+        "id"=>"required",
     );
 
 

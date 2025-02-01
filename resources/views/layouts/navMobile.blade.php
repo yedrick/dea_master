@@ -51,7 +51,7 @@
         </button>
       </div>
 
-      <div class="is-scrollbar-hidden overflow-y-auto overscroll-contain pb-2">
+      {{-- <div class="is-scrollbar-hidden overflow-y-auto overscroll-contain pb-2">
         <div class="is-scrollbar-hidden mt-3 flex space-x-4 overflow-x-auto px-3">
           <a href="apps-kanban.html" class="w-14 text-center">
             <div class="avatar size-12">
@@ -280,5 +280,5 @@
             <span>Influencer Dashboard</span>
           </a>
         </div>
-      </div>
+      </div> --}}
     </div>

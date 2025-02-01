@@ -4,26 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quarter extends Model{
+class TypeScore extends Model{
 
-    protected $table = 'quarters';
+    protected $table = 'type_scores';
     protected $with = [];
     public $timestamps=true;
 
-    //public static $formCreateRequest = '\App\Http\Requests\City\CityCreateRequest';
-    // public static $formUpdateRequest = 'App\Http\Requests\City\CityCreateRequest';
-
-        /* Create rules */
+    /* Create rules */
     public static $rules_created = array(
-	);
-		/* Updating rules */
+        'name' => 'required|string|unique:type_scores,name',
+        'score' => 'required|string',
+    );
+        /* Updating rules */
     public static $rules_updated = array(
+        'name' => 'required|string|max:255',
+        'score' => 'required|string',
     );
     /* Delete rules falta */
     public static $rules_remove = array(
+        "id"=>"required",
     );
 
 
     // Definir relaciones y atributos aquí
-
+    
 }
