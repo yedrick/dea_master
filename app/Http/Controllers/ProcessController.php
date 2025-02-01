@@ -157,11 +157,7 @@ class ProcessController extends Controller {
         return view('viewImage',['link'=>$link]);
     }
 
-    public function viewImage($id) {
-        $young = Youth::find($id);
-        $link=Func::getImageUrl($young->image,'youngs','text');
-        return view('viewImage',['link'=>$link]);
-    }
+
 
     public function registerYoung(Request $request) {
         // vlaidacion de los datos

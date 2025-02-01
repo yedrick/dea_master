@@ -22,6 +22,11 @@ class Func {
             ],[
                 'code'=>'text',
                 'type'=>'text'
+            ],[
+                'code'=>'resize',
+                'type'=>'resize',
+                'width'=>800,
+                'height'=>400
             ]
         ];
         foreach ($configs as $key => $value) {
@@ -45,7 +50,7 @@ class Func {
         }
         try {
             $img = self::manipulateImage($file, $size, $extension,$code);
-            $img->save($newFilename, 90);
+            $img->save($newFilename, 40);
             // $handle = fopen($newFilename, 'r+');
             // Storage::put($folder . '/' . $size['code'] . '/' . $filename . '.' . $extension, $handle);
             // fclose($handle);
@@ -64,15 +69,19 @@ class Func {
         if($type=='text'){
             $manager = new ImageManager(new Driver());
             $image = $manager->read($file);
-            $image->text($code, $image->width() / 2, ($image->height() / 2) + 95, function($font) {
+            $image = $image->resize(400, 600, function ($constraint) {
+                $constraint->aspectRatio(); // Mantener la relación de aspecto
+                $constraint->upsize(); // Evitar que la imagen crezca si es más pequeña
+            });
+            $image->text($code, $image->width() / 2, ($image->height() / 2)+150, function($font) {
                 $font->file(public_path('fonts/Arial.ttf'));
-                $font->size(60); // Tamaño grande
+                $font->size(160); // Tamaño grande
                 $font->color('#FFFFFF');
                 $font->stroke('000000', 3);
                 $font->align('center'); // Centrado horizontal
                 $font->valign('middle'); // Centrado vertical
                 $font->angle(0); // Sin rotación
-                $font->wrap(400);
+                $font->wrap(100);
             });
             return $image;
         }
@@ -80,7 +89,7 @@ class Func {
         if($type=='resize'){
             return  $manager->read($file)->resize($size['width'], $size['height'], function ($constraint) {
                 $constraint->aspectRatio();
-            })->encode(new JpegEncoder());
+            });
         }else if($type=='crop'){
             return  $manager->read($file)->crop($size['width'], $size['height'], 45, 90);
         }else if($type=='cover'){
