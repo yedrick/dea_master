@@ -157,6 +157,12 @@ class ProcessController extends Controller {
         return view('viewImage',['link'=>$link]);
     }
 
+    public function viewImage($id) {
+        $young = Youth::find($id);
+        $link=Func::getImageUrl($young->image,'youngs','text');
+        return view('viewImage',['link'=>$link]);
+    }
+
     public function registerYoung(Request $request) {
         // vlaidacion de los datos
 
@@ -170,6 +176,7 @@ class ProcessController extends Controller {
             'code'=>'required|unique:youths,code',
             'image' => 'required|image',
         ]);
+
         $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
         // creacion joven Young
         $young = new Youth();

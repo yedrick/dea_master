@@ -39,10 +39,10 @@ class Func {
         // }
         $newFilename = public_path('img/'.$folder . '/' . $size['code'] . '/' . $filename . '.' . $extension); // Guardar directamente en public
         $path = public_path('img/'.$folder . '/' . $size['code']); // Crear la ruta de la carpeta dentro de public
+
         if (!File::exists($path)) {
             File::makeDirectory($path, 0755, true); // Crear la carpeta si no existe
         }
-
         try {
             $img = self::manipulateImage($file, $size, $extension,$code);
             $img->save($newFilename, 90);
@@ -112,4 +112,5 @@ class Func {
     //     $fileContent = Storage::get($path);
     //     return $fileContent;
     // }
+
 }
