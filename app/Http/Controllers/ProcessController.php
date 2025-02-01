@@ -161,6 +161,7 @@ class ProcessController extends Controller {
         $request->validate([
             'image' => 'required|image',
         ]);
+        \Log::info('Subir imagen');
         $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
         return response()->json(['status' => true, 'message' => 'Imagen subida correctamente','path'=>$image_name]);
     }
