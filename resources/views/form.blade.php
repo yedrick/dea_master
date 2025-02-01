@@ -12,9 +12,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -105,23 +102,12 @@
             </div>
 
 
-            {{-- <div class="col-span-2">
+            <div class="col-span-2">
                 <div class="w-full p-4 bg-white rounded-lg shadow-md">
                     <label class="block mb-2 font-semibold text-gray-700">Subir Imagen</label>
                     <input type="file" id="imageInput" name="image"
                         class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring focus:ring-blue-300">
 
-                    <div id="preview" class="flex items-center justify-center w-full h-48 mt-4 border-2 border-gray-300 border-dashed rounded-lg">
-                        <span class="text-gray-500">Previsualización</span>
-                        <img id="previewImage" class="hidden max-w-full max-h-full rounded-lg">
-                    </div>
-                </div>
-            </div> --}}
-            <div class="col-span-2">
-                <div class="w-full p-4 bg-white rounded-lg shadow-md">
-                    <label class="block mb-2 font-semibold text-gray-700">Subir Imagen</label>
-                    <input type="file" id="imageInput" name="image" class="w-full p-2 text-sm border border-gray-300 rounded-md focus:ring focus:ring-blue-300">
-                    <input type="hidden" name="image_path" value="">
                     <div id="preview" class="flex items-center justify-center w-full h-48 mt-4 border-2 border-gray-300 border-dashed rounded-lg">
                         <span class="text-gray-500">Previsualización</span>
                         <img id="previewImage" class="hidden max-w-full max-h-full rounded-lg">
@@ -141,49 +127,18 @@
                 dateInput.value = "2000-01-01"; // Fecha predeterminada
             }
         });
-        // document.getElementById("imageInput").addEventListener("change", function(event) {
-        //     const file = event.target.files[0];
-        //     if (file) {
-        //         const reader = new FileReader();
-        //         reader.onload = function(e) {
-        //             const img = document.getElementById("previewImage");
-        //             img.src = e.target.result;
-        //             img.classList.remove("hidden");
-        //             document.getElementById("preview").querySelector("span").classList.add("hidden");
-        //         };
-        //         reader.readAsDataURL(file);
-        //     }
-        // });
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configuración de Dropzone
-            Dropzone.autoDiscover = false;
-
-            const myDropzone = new Dropzone("#imageInput", {
-                url: "{{ url('upload-image') }}", // URL a la que se enviará la imagen
-                paramName: "image", // Nombre del parámetro que contendrá la imagen
-                maxFiles: 1,
-                maxFilesize: 10, // Tamaño máximo en MB
-                acceptedFiles: 'image/*',
-                addRemoveLinks: true,
-                dictDefaultMessage: "Arrastra una imagen aquí o haz clic para subirla",
-                dictRemoveFile: "Eliminar imagen",
-                init: function() {
-                    this.on("addedfile", function(file) {
-                        // Deshabilitar el botón de enviar
-                        document.querySelector('button[type="submit"]').disabled = true;
-                    });
-                    this.on("success", function(file, response) {
-                        // Habilitar el botón de enviar cuando la imagen se cargue correctamente
-                        document.querySelector('button[type="submit"]').disabled = false;
-                        // Guardar la ruta de la imagen en un campo oculto para enviarla con el formulario
-                        document.querySelector('input[name="image_path"]').value = response.path;
-                    });
-                    this.on("removedfile", function(file) {
-                        // Deshabilitar el botón de enviar si se elimina la imagen
-                        document.querySelector('button[type="submit"]').disabled = true;
-                    });
-                }
-            });
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById("previewImage");
+                    img.src = e.target.result;
+                    img.classList.remove("hidden");
+                    document.getElementById("preview").querySelector("span").classList.add("hidden");
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 
