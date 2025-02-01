@@ -149,12 +149,20 @@ class ProcessController extends Controller {
         }
         return view('form',['code'=>$code]);
     }
-    
+
     public function viewImage($id) {
         $young = Youth::find($id);
         $link=Func::getImageUrl('youngs','text',$young->image);
         \Log::info($link);
         return view('viewImage',['link'=>$link]);
+    }
+
+    public function uploadImage(Request $request) {
+        $request->validate([
+            'image' => 'required|image',
+        ]);
+        $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
+        return response()->json(['status' => true, 'message' => 'Imagen subida correctamente','path'=>$image_name]);
     }
 
 
@@ -170,10 +178,11 @@ class ProcessController extends Controller {
             'phone_number' => 'required',
             'career' => 'nullable|string',
             'code'=>'required|unique:youths,code',
-            'image' => 'required|image',
+            // 'image' => 'required|image',
+            'image_path' => 'required',
         ]);
 
-        $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
+        // $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
         // creacion joven Young
         $young = new Youth();
         $young->first_name = $request->first_name;
@@ -185,7 +194,7 @@ class ProcessController extends Controller {
         $young->baptized=$request->baptized;
         $young->code = $request->code;
         $young->password=bcrypt($request->phone_number);
-        $young->image = $image_name;
+        $young->image = $request->image_path;
         $young->save();
         // return redirect('register-young')->with('message_success', 'Joven registrado correctamente');
         return redirect('view-image/'.$young->id);
