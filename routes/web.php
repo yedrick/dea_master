@@ -47,6 +47,8 @@ Route::get('/imports', function () {
 Route::get('register-young', [ProcessController::class, 'showFormRegisterYoung']);
 Route::post('register-young', [ProcessController::class, 'registerYoung']);
 
+Route::get('view-image/{id}', [ProcessController::class, 'viewImage']);
+
 
 Route::get('/loginImage', function () {
     return view('loginImage');
