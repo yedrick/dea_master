@@ -143,7 +143,18 @@ class ProcessController extends Controller {
 
     public function showFormRegisterYoung() {
         $code = mt_rand(100, 200);
+        // Generar el código y verificar si ya existe
+        while (Youth::where('code', $code)->exists()) {
+            $code = mt_rand(100, 200); // Si existe, genera uno nuevo
+        }
         return view('form',['code'=>$code]);
+    }
+    
+    public function viewImage($id) {
+        $young = Youth::find($id);
+        $link=Func::getImageUrl('youngs','text',$young->image);
+        \Log::info($link);
+        return view('viewImage',['link'=>$link]);
     }
 
     public function registerYoung(Request $request) {
@@ -159,7 +170,7 @@ class ProcessController extends Controller {
             'code'=>'required|unique:youths,code',
             'image' => 'required|image',
         ]);
-        $image_name=Func::upload($request->file('image'),'youngs',['extension'=>'jpg']);
+        $image_name=Func::upload($request->file('image'),'youngs',$request->code,['extension'=>'jpg']);
         // creacion joven Young
         $young = new Youth();
         $young->first_name = $request->first_name;
@@ -170,9 +181,11 @@ class ProcessController extends Controller {
         $young->discipleship=$request->discipleship;
         $young->baptized=$request->baptized;
         $young->code = $request->code;
+        $young->password=bcrypt($request->phone_number);
         $young->image = $image_name;
         $young->save();
-        return redirect('register-young')->with('message_success', 'Joven registrado correctamente');
+        // return redirect('register-young')->with('message_success', 'Joven registrado correctamente');
+        return redirect('view-image/'.$young->id);
     }
 
 

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('password');
             $table->string('phone_number');
-            $table->enum('discipleship',['Si','No']);
-            $table->enum('baptized',['Si','No']);
+            $table->enum('discipleship',['Si','No'])->default('No');
+            $table->enum('baptized',['Si','No'])->default('No');
             $table->string('career')->nullable();
             $table->string('code')->nullable();
             $table->string('image')->nullable();

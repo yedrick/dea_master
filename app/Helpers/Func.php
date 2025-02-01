@@ -13,63 +13,49 @@ class Func {
 
     }
 
-    public static function upload($file,$folder,$options=[]) {
+    public static function upload($file,$folder,$code=null,$options=[]) {
         $filename = str_replace('-', '', Str::uuid()->toString());
         $configs=[
             [
                 'code' => 'original',
                 'type' => 'original',
             ],[
-                'code' => 'resize',
-                'type' => 'resize'
-            ],[
-                'code' => 'scale',
-                'type' => 'scale'
-            ],[
                 'code'=>'text',
                 'type'=>'text'
             ]
         ];
         foreach ($configs as $key => $value) {
-            self::processAndStore($file,$folder,$value,$filename,$options);
+            self::processAndStore($file,$folder,$value,$filename,$code,$options);
         }
         return $filename;
     }
 
-    public static function processAndStore($file,$folder,$size,$filename,$options) {
+    public static function processAndStore($file,$folder,$size,$filename,$code=null,$options) {
         $extension = $options['extension'] ?? 'jpg';
-        $newFilename = public_path('tmp/' . $filename . '.' . $extension);
-        $path=public_path('tmp/');
+        // $newFilename = public_path('tmp/' . $filename . '.' . $extension);
+        // $path=public_path('tmp/');
+        // if (!File::exists($path)) {
+        //     File::makeDirectory($path, 0755, true);
+        // }
+        $newFilename = public_path('img/'.$folder . '/' . $size['code'] . '/' . $filename . '.' . $extension); // Guardar directamente en public
+        $path = public_path('img/'.$folder . '/' . $size['code']); // Crear la ruta de la carpeta dentro de public
         if (!File::exists($path)) {
-            File::makeDirectory($path, 0755, true);
+            File::makeDirectory($path, 0755, true); // Crear la carpeta si no existe
         }
 
         try {
-            $img = self::manipulateImage($file, $size, $extension);
+            $img = self::manipulateImage($file, $size, $extension,$code);
             $img->save($newFilename, 90);
-            $handle = fopen($newFilename, 'r+');
-            Storage::put($folder . '/' . $size['code'] . '/' . $filename . '.' . $extension, $handle);
-            fclose($handle);
-            unlink($newFilename);
+            // $handle = fopen($newFilename, 'r+');
+            // Storage::put($folder . '/' . $size['code'] . '/' . $filename . '.' . $extension, $handle);
+            // fclose($handle);
+            // unlink($newFilename);
         } catch (\Throwable $e) {
             throw new \Exception("Error al procesar imagen: " . $e->getMessage());
         }
-
-        $manager = new ImageManager(new Driver());
-        $image = $manager->imagick()->read($file);
-        $image->text('Hello World!', 100, 100, function($font) {
-            $font->file(public_path('fonts/arial.ttf'));
-            $font->size(24);
-            $font->color('#ff0000');
-            $font->align('center');
-            $font->valign('top');
-            $font->angle(45);
-        });
-
-        $image->save(public_path('images/imagen.jpg'));
     }
 
-    public static function manipulateImage($file, $size, $extension) {
+    public static function manipulateImage($file, $size, $extension,$code=null) {
         $type = $size['type'] ?? 'fit';
         if($type=='original'){
             $manager = new ImageManager(new Driver());
@@ -77,20 +63,22 @@ class Func {
         }
         if($type=='text'){
             $manager = new ImageManager(new Driver());
-            $image = $manager->imagick()->read($file);
-            $image->text('Hello World!', 100, 100, function($font) {
-                $font->file(public_path('fonts/arial.ttf'));
-                $font->size(24);
-                $font->color('#ff0000');
-                $font->align('center');
-                $font->valign('top');
-                $font->angle(45);
+            $image = $manager->read($file);
+            $image->text($code, $image->width() / 2, ($image->height() / 2) + 95, function($font) {
+                $font->file(public_path('fonts/Arial.ttf'));
+                $font->size(60); // Tamaño grande
+                $font->color('#FFFFFF');
+                $font->stroke('000000', 3);
+                $font->align('center'); // Centrado horizontal
+                $font->valign('middle'); // Centrado vertical
+                $font->angle(0); // Sin rotación
+                $font->wrap(400);
             });
             return $image;
         }
         $manager = new ImageManager(new Driver());
         if($type=='resize'){
-            return  $manager->read($file)->$type($size['width'], $size['height'], function ($constraint) {
+            return  $manager->read($file)->resize($size['width'], $size['height'], function ($constraint) {
                 $constraint->aspectRatio();
             })->encode(new JpegEncoder());
         }else if($type=='crop'){
@@ -103,4 +91,25 @@ class Func {
             return  $manager->read($file)->resizeDown($size['width'], $size['height']);
         }
     }
+    
+    // public static function getImageUrl(string $folder,string $code,string $file):string {
+    //     $path = $folder.'/'.$code.'/'.$file.'.jpg';
+    //      \Log::info('path: '.$path);
+    //     $final_path = Storage::url($path);
+    //     return $final_path;
+    // }
+    
+    public static function getImageUrl(string $folder,string $code,string $file):string {
+        $path = 'img/'.$folder.'/'.$code.'/'.$file.'.jpg';
+         \Log::info('path: '.$path);
+         
+        return asset($path);
+    }
+
+
+    // public static function getImagePath(string $folder,string $size,string $file) {
+    //     $path = $folder.'/'.$size.'/'.$file.'.jpg';
+    //     $fileContent = Storage::get($path);
+    //     return $fileContent;
+    // }
 }
