@@ -59,18 +59,18 @@
                 <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                         <div class="flex items-center ps-2"> <!-- Reducido de ps-3 a ps-2 -->
-                            <input id="horizontal-list-radio-license" type="radio" value="Si" name="discipleship"
+                            <input id="discipleship_radio_1" type="radio" value="Si" name="discipleship"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="horizontal-list-radio-license"
+                            <label for="discipleship_radio_1"
                                 class="w-full py-3 text-sm font-medium text-gray-900 ms-1 dark:text-gray-300">Si
                             </label> <!-- Reducido ms-2 a ms-1 -->
                         </div>
                     </li>
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                         <div class="flex items-center ps-2"> <!-- Reducido de ps-3 a ps-2 -->
-                            <input id="horizontal-list-radio-id" type="radio" value="No" name="discipleship"
+                            <input id="discipleship_radio_2" type="radio" value="No" name="discipleship"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="horizontal-list-radio-id"
+                            <label for="discipleship_radio_2"
                                 class="w-full py-3 text-sm font-medium text-gray-900 ms-1 dark:text-gray-300">No</label> <!-- Reducido ms-2 a ms-1 -->
                         </div>
                     </li>
@@ -83,18 +83,18 @@
                 <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                         <div class="flex items-center ps-2"> <!-- Reducido de ps-3 a ps-2 -->
-                            <input id="horizontal-list-radio-license" type="radio" value="Si" name="baptized"
+                            <input id="baptized_radio_1" type="radio" value="Si" name="baptized"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="horizontal-list-radio-license"
+                            <label for="baptized_radio_1"
                                 class="w-full py-3 text-sm font-medium text-gray-900 ms-1 dark:text-gray-300">Si
                             </label> <!-- Reducido ms-2 a ms-1 -->
                         </div>
                     </li>
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                         <div class="flex items-center ps-2"> <!-- Reducido de ps-3 a ps-2 -->
-                            <input id="horizontal-list-radio-id" type="radio" value="No" name="baptized"
+                            <input id="baptized_radio_2" type="radio" value="No" name="baptized"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                            <label for="horizontal-list-radio-id"
+                            <label for="baptized_radio_2"
                                 class="w-full py-3 text-sm font-medium text-gray-900 ms-1 dark:text-gray-300">No</label> <!-- Reducido ms-2 a ms-1 -->
                         </div>
                     </li>
