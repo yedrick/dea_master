@@ -11,79 +11,62 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body x-data="{isShowPopper :false}" class="is-header-blur bg-gray-100 h-screen flex items-center justify-center"
+<body x-data="{isShowPopper :false}" class="is-header-blur bg-gray-100 flex items-center justify-center min-h-screen"
     x-bind="$store.global.documentBody" style="font-family: Helvetica, Arial, sans-serif;">
-
-
-    <div class="w-1/2 bg-white rounded-lg shadow-lg overflow-hidden ">
-
-        <!-- Contenido dividido horizontalmente -->
-        <div class="flex">
-
-            <!-- Primer parte: formulario -->
-            <div class="w-1/3 p-6 flex flex-col items-center border-r">
-
-                <!-- Imagen circular -->
-                <img src="{{ asset('image/logo1.png') }}" alt="Imagen" class="w-24 h-24 rounded-full mb-4">
-
-                <!-- Subtítulo -->
+    <!-- Contenedor principal ajustado para pantallas pequeñas -->
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden p-6">
+        <div class="flex flex-col md:flex-row gap-6 min-h-screen">
+            <!-- Sección del formulario -->
+            <div class="w-full md:w-1/3 p-6 flex flex-col items-center border-b md:border-r md:border-b-0">
+                <!-- Imagen del logo ajustada para no cortarse y mejor centrado -->
+                <img src="{{ asset('image/logo1.png') }}" alt="Imagen" class="w-32 h-32 object-contain mb-4">
                 <h2 class="text-xl font-semibold mb-4">DATOS</h2>
-
-                <!-- Inputs del formulario -->
                 <input type="text" placeholder="Nombre" class="w-full mb-4 p-2 border border-gray-300 rounded-md">
                 <input type="text" placeholder="Apellido" class="w-full mb-4 p-2 border border-gray-300 rounded-md">
-                <input type="text" placeholder="Fecha de Nacimiento" class="w-full p-2 border border-gray-300 rounded-md">
-                <!-- Botón superior -->
-                <button class="w-32 py-2 bg-gray-500 text-white rounded-md my-4">
-                    Guardar
+                <input type="text" placeholder="Fecha de Nacimiento"
+                    class="w-full p-2 border border-gray-300 rounded-md">
+                <button class="w-60 py-2 bg-gray-500 text-white rounded shadow justify-center mt-8"
+                    style="font-family: Helvetica, Arial, sans-serif;background: #6696d8;">
+                    GUARDAR
                 </button>
-
             </div>
 
-            <!-- Segunda parte: cerdo y contador -->
-
-
-            <!-- Segunda parte: cerdo y contador -->
-            <div class="w-2/3 p-4 flex flex-col items-center justify-center space-y-6">
-                <!-- Imagen de cerdo (alcancia) más grande y centrada -->
+            <!-- Sección de JUDEA COIN y el GIF -->
+            <div class="w-full md:w-2/3 flex flex-col items-center justify-center space-y-6">
                 <div class="flex items-center space-x-4">
-
-                    <!-- Contador -->
-
-                <!-- Si necesitas una fuente tipo display, puedes agregarla como una clase -->
-                <style>
-                    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-                </style>
-
-                <!-- Usar la clase de la fuente en el contenedor -->
-
-                    <!-- JUDEA COIN con diferente tipografía y alineado a la derecha -->
-                    <div class="text-lg font-extrabold text-blue-500">
+                    <div class="text-2xl sm:text-3xl text-yellow-500 text-center font-semibold">
                         JUDEA COIN
                     </div>
+                    <img src="{{ asset('image/coin.png') }}" alt="Coin Icon" class="w-12 sm:w-14 animate-pulse">
+                </div>
 
-                </div>
-                <div class="tenor-gif-embed" data-postid="13609401" data-share-method="host" data-aspect-ratio="1.33512" data-width="80%">
-                    <a href="https://tenor.com/view/alcancia-ahorrar-guardar-chanchito-money-gif-13609401">Alcancia Ahorrar GIF</a>
-                    from
-                    <a href="https://tenor.com/search/alcancia-gifs">Alcancia GIFs</a>
-                </div>
-                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-                {{-- <img src="{{ asset('image/12.png') }}" alt="Cerdo Alcancia" class=" w-auto h-48 object-contain mb-4 "> --}}
-                    <!-- Contenedor con el contador y JUDEA COIN -->
-                    <div class="bg-white border-8 border-blue-900 text-black text-5xl font-[PressStart2P] px-6 py-2 rounded-lg text-center w-auto mx-auto">
-                        1234
+                <div class="relative w-full max-w-[350px] overflow-hidden flex justify-center">
+                    <div class="tenor-gif-embed scale-[1.3] -translate-x-1/6" data-postid="13609401"
+                        data-share-method="host" data-aspect-ratio="1.33512" data-width="100%">
+                        <a href="https://tenor.com/view/alcancia-ahorrar-guardar-chanchito-money-gif-13609401">
+                            Alcancia Ahorrar GIF
+                        </a>
+                        from
+                        <a href="https://tenor.com/search/alcancia-gifs">Alcancia GIFs</a>
                     </div>
+                </div>
 
+                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                {{-- <img src="{{ asset('image/12.png') }}" alt="Cerdo Alcancia" class=" w-auto h-48 object-contain mb-4
+                "> --}}
+                <!-- Contenedor con el contador y JUDEA COIN -->
+                <div
+                    class="bg-black border-8 border-yellow-600 text-gray-300 text-2xl sm:text-4xl font-bold px-5 py-2 rounded-lg text-center w-auto mx-auto shadow-lg">
+                    Bs. 10000000
+                </div>
             </div>
-
         </div>
-
     </div>
 
     <script>
@@ -92,8 +75,8 @@
     </script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/sweet-alert.js') }}"></script>
-    {{-- inserto js --}}
     @stack('scripts')
+
 </body>
 
 </html>
