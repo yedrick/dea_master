@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body x-data="{isShowPopper :false}" class="flex items-center justify-center min-h-screen bg-gray-100 is-header-blur"
