@@ -51,9 +51,11 @@
             <div class="flex items-center justify-center flex-1 mb-4">
                 <div class="grid w-full max-w-4xl grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
                     @foreach ($type_scores as $type_score)
-                        <label class="flex items-center justify-center p-6 text-white bg-blue-500 rounded-lg cursor-pointer sm:p-8 md:p-10">
-                            <input type="checkbox" name="score[]" class="hidden" value="{{ $type_score->id }}">
-                            <span class="font-semibold text-center">{{ $type_score->name }}<br>({{ $type_score->score }} pts)</span>
+                        <label class="flex items-center justify-center p-6 text-white transition-all duration-300 bg-blue-500 rounded-lg cursor-pointer sm:p-8 md:p-10 peer-checked:bg-green-500">
+                            <input type="checkbox" name="score[]" class="hidden peer" value="{{ $type_score->id }}">
+                            <span class="font-semibold text-center">
+                                {{ $type_score->name }}<br>({{ $type_score->score }} pts)
+                            </span>
                         </label>
                     @endforeach
                 </div>

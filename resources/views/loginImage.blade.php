@@ -41,28 +41,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Sección de JUDEA COIN y el GIF -->
-            {{-- <div class="flex flex-col items-center justify-center w-full space-y-4 md:w-2/3">
-                <div class="w-auto px-4 py-2 mx-auto text-2xl font-bold text-center text-gray-300 bg-black border-8 border-yellow-600 rounded-lg shadow-lg sm:text-4xl">
-                    10000000
-               </div>
-                <div class="flex items-center space-x-4">
-                    <div class="text-2xl font-semibold text-center text-yellow-500 sm:text-3xl">
-                        JUDEA COIN
-                    </div>
-                    <img src="{{ asset('image/coin.png') }}" alt="Coin Icon" class="w-12 sm:w-14 animate-pulse">
-                </div>
-
-                <div class="relative w-full max-w-[550px] overflow-hidden flex justify-center">
-                    <div class="tenor-gif-embed scale-[1.3] -translate-x-1/6" data-postid="13609401"
-                        data-share-method="host" data-aspect-ratio="1.33512" data-width="100%">
-                        <a href="{{ asset('image/alcancia-ahorrar.gif') }}">
-                            <img src="{{ asset('image/alcancia-ahorrar.gif') }}"  class="object-contain mb-4 h-96 ">
-                        </a>
-                    </div>
-                </div>
-            </div> --}}
             <div class="flex flex-col items-center justify-center w-full space-y-4 md:w-2/3">
                 <!-- Contenedor para la imagen y el número -->
                 <div class="w-auto px-4 py-2 mx-auto text-2xl font-bold text-center text-gray-300 bg-black border-8 border-yellow-600 rounded-lg shadow-lg sm:text-4xl">
