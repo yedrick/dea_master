@@ -47,4 +47,9 @@ class Youth extends Model{
 
     // Definir relaciones y atributos aquí
 
+    // atributo name completo
+    public function getFullNameAttribute() {
+        return $this->first_name.' '.$this->last_name;
+    }
+
 }
