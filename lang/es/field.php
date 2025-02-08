@@ -41,6 +41,7 @@ return [
     'score'=>'Puntaje',
     'youth_id'=>'Joven',
     'type_score_id'=>'Tipo Puntaje',
+    'pts'=>'Puntos',
 
 
     'email_verified_at' => 'Email Verificado en',
