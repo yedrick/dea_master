@@ -98,6 +98,7 @@
                 Dashboard
               </a>
             </li>
+        @if (auth()->user()->hasRole('admin'))
             <li>
                 <a x-data="navLink" href="{{url('model-list/user')}}"
                 :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
@@ -202,8 +203,9 @@
               </ul>
             </li>
           </ul>
+        @endif
           {{-- verificar si tiene permisos view-youth --}}
-          @if (auth()->user()->can('view-youth'))
+          @if (auth()->user()->hasRole('youth') || auth()->user()->hasRole('admin'))
           <ul class="flex flex-col flex-1 px-4 font-inter">
             <li x-data="accordionItem('menu-item-2')">
               <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
