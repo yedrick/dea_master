@@ -31,6 +31,7 @@
         <div id="x-teleport-target"></div>
         <script> window.addEventListener("DOMContentLoaded", () => Alpine.start());</script>
         <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
         <script src="{{ asset('js/sweet-alert.js') }}"></script>
         {{-- inserto js --}}
         @stack('scripts')

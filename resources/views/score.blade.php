@@ -29,7 +29,7 @@
 </head>
 
 <body  class="flex items-center justify-center min-h-screen bg-gray-100">
-    {{-- @include('layouts.notificacion') --}}
+    @include('layouts.notificacion')
 
     <div class="flex flex-col justify-between w-full h-auto max-w-screen-lg p-6 bg-white border rounded-lg shadow-lg sm:w-4/5">
         <form action="{{ url('save-score') }}" method="post">
