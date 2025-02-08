@@ -29,7 +29,7 @@
 </head>
 
 <body  class="flex items-center justify-center min-h-screen bg-gray-100">
-    @include('layouts.notificacion')
+    {{-- @include('layouts.notificacion') --}}
 
     <div class="flex flex-col justify-between w-full h-auto max-w-screen-lg p-6 bg-white border rounded-lg shadow-lg sm:w-4/5">
         <form action="{{ url('save-score') }}" method="post">
@@ -77,8 +77,8 @@
             $('.js-example-basic-single').select2();
         });
     </script>
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('js/sweet-alert.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="{{ asset('js/sweet-alert.js') }}"></script> --}}
     <script>
         function filterByYoung() {
             var youngId = document.getElementById("young_id").value;

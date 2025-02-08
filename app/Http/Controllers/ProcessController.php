@@ -228,13 +228,13 @@ class ProcessController extends Controller {
     }
 
     public function registerScoreYoung(Request $request) {
-        $typeScores=TypeScore::whereIn('id',$request->score)->select('id','pts')->get();
+        $typeScores=TypeScore::whereIn('id',$request->score)->select('id','score')->get();
         $dataToInsert = [];
         foreach ($typeScores as $typeScore) {
             $dataToInsert[] = [
                 'youth_id' => $request->young_id,
                 'type_score_id' => $typeScore->id,
-                'pts' => $typeScore->pts,
+                'pts' => $typeScore->score,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
