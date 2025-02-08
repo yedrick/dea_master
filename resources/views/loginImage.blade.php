@@ -29,7 +29,7 @@
 
                 <div class="w-full max-w-sm p-4 bg-white rounded-lg shadow-lg">
                     <div class="flex items-center space-x-4">
-                        <img class="w-16 h-16 rounded-full" src="{{asset($link)}}" alt="Foto de perfil">
+                        <img class="w-32 h-32 rounded-full" src="{{asset($link)}}" alt="Foto de perfil">
                         <div>
                             <h2 class="text-xl font-bold text-gray-800">{{ $young->first_name.' '.$young->last_name }}</h2>
                         </div>
