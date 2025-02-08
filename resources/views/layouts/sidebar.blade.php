@@ -105,13 +105,6 @@
                 Usuarios
               </a>
             </li>
-            {{-- <li>
-                <a x-data="navLink" href="{{ url('model-list/membership-status') }}"
-                  :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Membresias
-                </a>
-            </li> --}}
             <li>
                 <a x-data="navLink" href="{{ url('model-list/people') }}"
                 :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
@@ -209,6 +202,8 @@
               </ul>
             </li>
           </ul>
+          {{-- verificar si tiene permisos view-youth --}}
+          @if (auth()->user()->can('view-youth'))
           <ul class="flex flex-col flex-1 px-4 font-inter">
             <li x-data="accordionItem('menu-item-2')">
               <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
@@ -266,6 +261,8 @@
               </ul>
             </li>
           </ul>
+          @endif
+
           {{-- <div class="h-px mx-4 my-3 bg-slate-200 dark:bg-navy-500"></div> --}}
         </div>
       </div>
