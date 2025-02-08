@@ -52,14 +52,20 @@ Route::post('register-young', [ProcessController::class, 'registerYoung']);
 
 Route::get('view-image/{id}', [ProcessController::class, 'viewImage']);
 
-Route::get('/loginImage', function () {
-    return view('loginImage');
-});
+Route::get('view-pst/{code}', [ProcessController::class, 'viewPts']);
+
+Route::get('view-young-pst', [ProcessController::class, 'viewScoreYoung']);
+
+Route::post('save-score', [ProcessController::class, 'registerScoreYoung']);
+
+// Route::get('/loginImage', function () {
+//     return view('loginImage');
+// });
 Route::get('/score', function () {
     return view('score');
 });
-Route::get('/form', function () {
-    return view('form');
-});
+// Route::get('/form', function () {
+//     return view('form');
+// });
 
 

@@ -14,56 +14,77 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 
-<body x-data="{isShowPopper :false}" class="is-header-blur bg-gray-100 flex items-center justify-center min-h-screen"
+<body x-data="{isShowPopper :false}" class="flex items-center justify-center min-h-screen bg-gray-100 is-header-blur"
     x-bind="$store.global.documentBody" style="font-family: Helvetica, Arial, sans-serif;">
     <!-- Contenedor principal ajustado para pantallas pequeñas -->
-    <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden p-6">
-        <div class="flex flex-col md:flex-row gap-6 min-h-screen">
+    <div class="w-full max-w-4xl p-6 overflow-hidden bg-white rounded-lg shadow-lg">
+        <div class="flex flex-col min-h-screen gap-6 md:flex-row">
             <!-- Sección del formulario -->
-            <div class="w-full md:w-1/3 p-6 flex flex-col items-center border-b md:border-r md:border-b-0">
+            <div class="flex flex-col items-center w-full p-4 border-b md:w-1/3 md:border-r md:border-b-0">
                 <!-- Imagen del logo ajustada para no cortarse y mejor centrado -->
-                <img src="{{ asset('image/logo1.png') }}" alt="Imagen" class="w-32 h-32 object-contain mb-4">
-                <h2 class="text-xl font-semibold mb-4">DATOS</h2>
-                <input type="text" placeholder="Nombre" class="w-full mb-4 p-2 border border-gray-300 rounded-md">
-                <input type="text" placeholder="Apellido" class="w-full mb-4 p-2 border border-gray-300 rounded-md">
-                <input type="text" placeholder="Fecha de Nacimiento"
-                    class="w-full p-2 border border-gray-300 rounded-md">
-                <button class="w-60 py-2 bg-gray-500 text-white rounded shadow justify-center mt-8"
-                    style="font-family: Helvetica, Arial, sans-serif;background: #6696d8;">
-                    GUARDAR
-                </button>
+                <img src="{{ asset('image/logo1.png') }}" alt="Imagen" class="object-contain w-32 h-32 mb-4">
+
+                <div class="w-full max-w-sm p-4 bg-white rounded-lg shadow-lg">
+                    <div class="flex items-center space-x-4">
+                        <img class="w-16 h-16 rounded-full" src="{{asset($link)}}" alt="Foto de perfil">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">{{ $young->first_name.' '.$young->last_name }}</h2>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-700"><span class="font-semibold">Numero:</span> {{ $young->code }}</p>
+                        <p class="text-gray-700"><span class="font-semibold">Celular:</span> {{ $young->phone_number }}</p>
+                        <p class="text-gray-700"><span class="font-semibold">Cumpleaños:</span> {{ $young->birth_date }} </p>
+                    </div>
+                </div>
             </div>
 
             <!-- Sección de JUDEA COIN y el GIF -->
-            <div class="w-full md:w-2/3 flex flex-col items-center justify-center space-y-6">
+            {{-- <div class="flex flex-col items-center justify-center w-full space-y-4 md:w-2/3">
+                <div class="w-auto px-4 py-2 mx-auto text-2xl font-bold text-center text-gray-300 bg-black border-8 border-yellow-600 rounded-lg shadow-lg sm:text-4xl">
+                    10000000
+               </div>
                 <div class="flex items-center space-x-4">
-                    <div class="text-2xl sm:text-3xl text-yellow-500 text-center font-semibold">
+                    <div class="text-2xl font-semibold text-center text-yellow-500 sm:text-3xl">
                         JUDEA COIN
                     </div>
                     <img src="{{ asset('image/coin.png') }}" alt="Coin Icon" class="w-12 sm:w-14 animate-pulse">
                 </div>
 
-                <div class="relative w-full max-w-[350px] overflow-hidden flex justify-center">
+                <div class="relative w-full max-w-[550px] overflow-hidden flex justify-center">
                     <div class="tenor-gif-embed scale-[1.3] -translate-x-1/6" data-postid="13609401"
                         data-share-method="host" data-aspect-ratio="1.33512" data-width="100%">
-                        <a href="https://tenor.com/view/alcancia-ahorrar-guardar-chanchito-money-gif-13609401">
-                            Alcancia Ahorrar GIF
+                        <a href="{{ asset('image/alcancia-ahorrar.gif') }}">
+                            <img src="{{ asset('image/alcancia-ahorrar.gif') }}"  class="object-contain mb-4 h-96 ">
                         </a>
-                        from
-                        <a href="https://tenor.com/search/alcancia-gifs">Alcancia GIFs</a>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="flex flex-col items-center justify-center w-full space-y-4 md:w-2/3">
+                <!-- Contenedor para la imagen y el número -->
+                <div class="w-auto px-4 py-2 mx-auto text-2xl font-bold text-center text-gray-300 bg-black border-8 border-yellow-600 rounded-lg shadow-lg sm:text-4xl">
+                    <div class="flex items-center justify-center">
+                        <img src="{{ asset('image/coin.png') }}" alt="Coin Icon" class="w-12 mr-2 sm:w-14 animate-pulse">
+                        <span>10 000 000</span>
                     </div>
                 </div>
 
-                <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-                {{-- <img src="{{ asset('image/12.png') }}" alt="Cerdo Alcancia" class=" w-auto h-48 object-contain mb-4
-                "> --}}
-                <!-- Contenedor con el contador y JUDEA COIN -->
-                <div
-                    class="bg-black border-8 border-yellow-600 text-gray-300 text-2xl sm:text-4xl font-bold px-5 py-2 rounded-lg text-center w-auto mx-auto shadow-lg">
-                    Bs. 10000000
+                <!-- Texto "JUDEA COIN" -->
+                <div class="text-2xl font-semibold text-center text-yellow-500 sm:text-3xl">
+                    JUDEA COIN
+                </div>
+
+                <!-- GIF debajo de todo -->
+                <div class="relative w-full max-w-[550px] overflow-hidden flex justify-center">
+                    <div class="tenor-gif-embed scale-[1.3] -translate-x-1/6" data-postid="13609401"
+                        data-share-method="host" data-aspect-ratio="1.33512" data-width="100%">
+                        <a href="{{ asset('image/alcancia-ahorrar.gif') }}">
+                            <img src="{{ asset('image/alcancia-ahorrar.gif') }}" class="object-contain mb-4 h-96">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

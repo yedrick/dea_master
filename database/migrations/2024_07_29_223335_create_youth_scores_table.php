@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('youth_scores', function (Blueprint $table) {
             $table->id();
             $table->string('code')->nullable();
-
+            $table->integer('pts')->default(0);
             $table->unsignedBigInteger('youth_id');
             $table->foreign('youth_id')->references('id')->on('youths')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('type_score_id');

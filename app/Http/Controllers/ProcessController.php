@@ -6,12 +6,17 @@ use App\Exports\CustomExportReport;
 use App\Helpers\Func;
 use App\Imports\StudentsImport;
 use App\Models\Student;
+use App\Models\TypeScore;
 use App\Models\User;
 use App\Models\Youth;
+use App\Models\YouthScore;
 use App\Services\ReportExcel;
+use Doctrine\DBAL\Types\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class ProcessController extends Controller {
     // obtener el padre  en user
@@ -199,8 +204,41 @@ class ProcessController extends Controller {
         return redirect('view-image/'.$young->id);
     }
 
+    public function viewPts($code) {
+        $young = Youth::where('code', $code)->first();
+        if(!$young) return redirect('/score')->with('message_error', 'No se encontro el joven');
+        $link=Func::getImageUrl('youngs','text',$young->image);
+        $response = Http::head($link);
+        if (!$response->successful()) {
+            $link=asset('image/logo1.png');
+        }
+        return view('loginImage',['young'=>$young,'link'=>$link]);
+    }
 
+    public function viewScoreYoung() {
+        $youngs = Youth::get();
+        $type_scores=TypeScore::get();
+        $youngId=request()->get('young_id');
+        \Log::info('Joven: '.$youngId);
+        if($youngId){
+            $youngScores = YouthScore::where('youth_id', $youngId)->whereDate('created_at', Carbon::today())->pluck('type_score_id')->toArray();
+            $type_scores = TypeScore::whereNotIn('id', $youngScores)->get();
+        }
+        return view('score',['youngs'=>$youngs,'type_scores'=>$type_scores]);
+    }
 
-
-
+    public function registerScoreYoung(Request $request) {
+        $typeScores=TypeScore::whereIn('id',$request->score)->select('id')->get();
+        $dataToInsert = [];
+        foreach ($typeScores as $typeScore) {
+            $dataToInsert[] = [
+                'youth_id' => $request->young_id,
+                'type_score_id' => $typeScore->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+        YouthScore::insert($dataToInsert);
+        return redirect('/view-young-pst')->with('message_success', 'Puntos registrados correctamente');
+    }
 }
