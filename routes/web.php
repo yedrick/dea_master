@@ -29,7 +29,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
     Route::post('/save-teacher', [ProcessController::class, 'registerTeacher']);
     Route::get('/list-student', [MainController::class, 'showTableEstudentes'])->name('estudiantes.show');
+
+    //rutas para el registro de los estudiantes
+    Route::get('view-young-pst', [ProcessController::class, 'viewScoreYoung']);
+    Route::post('save-score', [ProcessController::class, 'registerScoreYoung']);
+
 });
+
+
 
 Route::prefix('ajax')->group(function () {
     Route::get('/search-parent/{ci_number}', [ProcessController::class,'getParent']);
@@ -54,9 +61,7 @@ Route::get('view-image/{id}', [ProcessController::class, 'viewImage']);
 
 Route::get('view-pst/{code}', [ProcessController::class, 'viewPts']);
 
-Route::get('view-young-pst', [ProcessController::class, 'viewScoreYoung']);
 
-Route::post('save-score', [ProcessController::class, 'registerScoreYoung']);
 
 // Route::get('/loginImage', function () {
 //     return view('loginImage');

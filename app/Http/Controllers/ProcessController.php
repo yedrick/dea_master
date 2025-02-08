@@ -212,7 +212,8 @@ class ProcessController extends Controller {
         if (!$response->successful()) {
             $link=asset('image/logo1.png');
         }
-        return view('loginImage',['young'=>$young,'link'=>$link]);
+        $pts=YouthScore::sum('pts');
+        return view('loginImage',['young'=>$young,'link'=>$link,'pts'=>$pts]);
     }
 
     public function viewScoreYoung() {
@@ -228,6 +229,8 @@ class ProcessController extends Controller {
     }
 
     public function registerScoreYoung(Request $request) {
+        if(!$request->score) return redirect('/view-young-pst')->with('message_error', 'Debe seleccionar al menos un puntaje');
+        if (!$request->young_id) return redirect('/view-young-pst')->with('message_error', 'Debe seleccionar un joven');
         $typeScores=TypeScore::whereIn('id',$request->score)->select('id','score')->get();
         $dataToInsert = [];
         foreach ($typeScores as $typeScore) {

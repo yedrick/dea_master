@@ -46,7 +46,7 @@
                 <div class="w-auto px-4 py-2 mx-auto text-2xl font-bold text-center text-gray-300 bg-black border-8 border-yellow-600 rounded-lg shadow-lg sm:text-4xl">
                     <div class="flex items-center justify-center">
                         <img src="{{ asset('image/coin.png') }}" alt="Coin Icon" class="w-12 mr-2 sm:w-14 animate-pulse">
-                        <span>10 000 000</span>
+                        <span>{{ $pts }}</span>
                     </div>
                 </div>
 
