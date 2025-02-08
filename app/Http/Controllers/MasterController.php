@@ -125,7 +125,7 @@ class MasterController extends Controller {
         }
         $model->save();
 
-        return redirect()->route('model.list', ['nodeName' => $nodeName]);
+        return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro creado correctamente');
     }
 
     public function update(Request $request ,$nodeName, $id) {
@@ -175,7 +175,7 @@ class MasterController extends Controller {
             }
         }
         $model->update();
-        return redirect()->route('model.list', ['nodeName' => $nodeName]);
+        return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro actualizado correctamente');
     }
 
     public function delete($nodeName,$id){
@@ -186,7 +186,7 @@ class MasterController extends Controller {
         $model= $model->find($id);
         if(!$model) return abort(404);
         $model->delete();
-        return redirect()->route('model.list', ['nodeName' => $nodeName]);
+        return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro eliminado correctamente');
     }
 
     public function updateOrderNode( Request $request, $nodeName) {
@@ -203,7 +203,7 @@ class MasterController extends Controller {
         foreach ($list as $key => $value) {
             Field::where('name',$value)->where('parent_id',$node->id)->update(['display_list'=>'show']);
         }
-        return redirect()->route('model.list', ['nodeName' => $nodeName]);
+        return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Orden actualizado correctamente');
     }
 
     public function createFilters(Request $request ,$nodeName ) {
@@ -226,7 +226,7 @@ class MasterController extends Controller {
         $filter->value=$request->value;
         $filter->type=$request->type;
         $filter->save();
-        return redirect()->route('model.list', ['nodeName' => $nodeName]);
+        return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Filtro creado correctamente');
     }
 
     public function ajaxRelationNode(Request $request,$nodeName) {
