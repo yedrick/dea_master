@@ -40,10 +40,10 @@
                   <div>
                     <a href="#"
                       class="text-base font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light">
-                      Usuario
+                      {{ auth()->user()->name }}
                     </a>
                     <p class="text-xs text-slate-400 dark:text-navy-300">
-                      Nombre Usuario
+                      {{ auth()->user()->email }}
                     </p>
                   </div>
                 </div>
