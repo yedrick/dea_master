@@ -34,7 +34,7 @@ class YouthScore extends Model{
 
 
     // Definir relaciones y atributos aquí
-    public function youths() {
+    public function youth() {
         return $this->belongsTo(Youth::class, 'youth_id');
     }
     public function type_scores() {
