@@ -35,8 +35,15 @@ return [
     'assistant'=>'Asistente',
     'date_membership'=>'Fecha de Membresia',
     'church'=>'Iglesia',
+    'discipleship'=>'Discipulado',
+    'baptized'=>'Bautizado',
+    'career'=>'Carrera Universitaria',
+    'score'=>'Puntaje',
+    'youth_id'=>'Joven',
+    'type_score_id'=>'Tipo Puntaje',
+
+
     'email_verified_at' => 'Email Verificado en',
     'password' => 'Contraseña',
-    'remember_token' => 'T
-    oken de sesion',
+    'remember_token' => 'Token de sesion',
 ];

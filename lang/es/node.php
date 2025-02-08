@@ -16,5 +16,9 @@ return [
     'role_permission'=>'Rol y Permiso',
     'ministries'=>'Ministerio',
     'users'=>'Usuario',
+    'youths'=>'Joven',
+    'type_scores'=>'Tipo de Puntaje',
+    'youth_scores'=>'Puntaje de Joven',
+
 
 ];
