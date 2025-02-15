@@ -212,7 +212,11 @@ class ProcessController extends Controller {
         if (!$response->successful()) {
             $link=asset('image/logo1.png');
         }
-        $pts=YouthScore::sum('pts');
+        // $pts=YouthScore::sum('pts');
+        $positivos = YouthScore::where('pts', '>=', 0)->sum('pts');
+        $negativos = YouthScore::where('pts', '<', 0)->sum('pts');
+        $pts = $positivos + $negativos;
+        
         return view('loginImage',['young'=>$young,'link'=>$link,'pts'=>$pts]);
     }
 
@@ -222,7 +226,8 @@ class ProcessController extends Controller {
         $youngId=request()->get('young_id');
         \Log::info('Joven: '.$youngId);
         if($youngId){
-            $youngScores = YouthScore::where('youth_id', $youngId)->whereDate('created_at', Carbon::today())->pluck('type_score_id')->toArray();
+            //5
+            $youngScores = YouthScore::where('youth_id', $youngId)->whereDate('created_at', Carbon::today())->whereNotIn('type_score_id', [5])->pluck('type_score_id')->toArray();
             $type_scores = TypeScore::whereNotIn('id', $youngScores)->get();
         }
         return view('score',['youngs'=>$youngs,'type_scores'=>$type_scores]);
