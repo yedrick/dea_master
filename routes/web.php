@@ -61,6 +61,10 @@ Route::get('view-image/{id}', [ProcessController::class, 'viewImage']);
 
 Route::get('view-pst/{code}', [ProcessController::class, 'viewPts']);
 
+Route::get('view', function () {
+    return view('inicialCode');
+});
+
 
 
 // Route::get('/loginImage', function () {

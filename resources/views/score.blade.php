@@ -31,7 +31,12 @@
 <body  class="flex items-center justify-center min-h-screen bg-gray-100">
     @include('layouts.notificacion')
 
-    <div class="flex flex-col justify-between w-full h-auto max-w-screen-lg p-6 bg-white border rounded-lg shadow-lg sm:w-4/5">
+
+    <div class="flex flex-col justify-between w-full h-auto max-w-screen-lg p-4 bg-white border rounded-lg shadow-lg sm:w-4/5">
+        <div class="flex items-center w-full h-24 ">
+            <a href="{{ url('/model-list/youth') }}" class="mx-1 font-bold text-white bg-blue-800 rounded-lg cursor-pointer text-sl sm:p-6 md:p-6">Jovenes</a>
+            <a href="{{ url('register-young') }}" class="mx-1 font-bold text-white bg-blue-600 rounded-lg cursor-pointer text-sl sm:p-6 md:p-6">Formulario</a>
+        </div>
         <form action="{{ url('save-score') }}" method="post">
             @csrf
             <!-- Primera parte -->

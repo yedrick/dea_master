@@ -206,13 +206,16 @@ class ProcessController extends Controller {
 
     public function viewPts($code) {
         $young = Youth::where('code', $code)->first();
-        if(!$young) return redirect('/score')->with('message_error', 'No se encontro el joven');
+        if(!$young) return redirect('/view')->with('message_error', 'No se encontro el Codigo');
         $link=Func::getImageUrl('youngs','text',$young->image);
         $response = Http::head($link);
         if (!$response->successful()) {
             $link=asset('image/logo1.png');
         }
-        $pts=YouthScore::sum('pts');
+        // $pts=YouthScore::sum('pts');
+        $positivos = YouthScore::where('pts', '>=', 0)->sum('pts');
+        $negativos = YouthScore::where('pts', '<', 0)->sum('pts');
+        $pts = $positivos + $negativos;
         return view('loginImage',['young'=>$young,'link'=>$link,'pts'=>$pts]);
     }
 
