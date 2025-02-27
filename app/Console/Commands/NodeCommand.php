@@ -82,8 +82,10 @@ class NodeCommand extends CrudCommand{
             }
             $relation = $this->relations[$column['name']] ?? null;
             // $value_relation=$relation['table']!=null?$relation['table']: null;
-            $required=$column['nullable'] === 1 ? 0 : 1;
-            \Log::info('nullable: '.$column['nullable']);
+            $required=1;
+            if($column['nullable']){
+                $required=0;
+            }
             if($node->name == 'field'){
                 $required=0;
             }
