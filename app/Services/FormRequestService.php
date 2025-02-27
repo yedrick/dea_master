@@ -23,18 +23,43 @@ class FormRequestService {
         return false;
     }
 
-    public function validate($model, $data) {
+
+    public function hasFormRequestUpdate() {
+        $formRequest = $this->model::$formUpdateRequest;
+        if(class_exists($formRequest)) {
+            $this->formRequest = new $formRequest();
+            return true;
+        }
+        Log::info('no hasFormRequest');
+        return false;
+    }
+
+
+    public function validate($model, $data,$type) {
         $this->model = $model;
         $this->data = $data;
-        if($this->hasFormRequest()) {
-            $authorize = $this->formRequest->authorize();
-            $this->validateAuthorize($authorize);
-            $rules=  $this->formRequest->rules();
-            $messages= $this->formRequest->messages();
-            $attributes= $this->formRequest->attributes();
-            $afters= $this->formRequest->aftersArray();
-            return $this->initValidator($data, $rules, $messages, $attributes, $afters);
+        if($type=='formUpdateRequest') {
+            if($this->hasFormRequestUpdate()) {
+                $authorize = $this->formRequest->authorize();
+                $this->validateAuthorize($authorize);
+                $rules=  $this->formRequest->rules();
+                $messages= $this->formRequest->messages();
+                $attributes= $this->formRequest->attributes();
+                $afters= $this->formRequest->aftersArray();
+                return $this->initValidator($data, $rules, $messages, $attributes, $afters);
+            }
+        }else{
+            if($this->hasFormRequest()) {
+                $authorize = $this->formRequest->authorize();
+                $this->validateAuthorize($authorize);
+                $rules=  $this->formRequest->rules();
+                $messages= $this->formRequest->messages();
+                $attributes= $this->formRequest->attributes();
+                $afters= $this->formRequest->aftersArray();
+                return $this->initValidator($data, $rules, $messages, $attributes, $afters);
+            }
         }
+
     }
 
     protected function validateAuthorize($authorize) {

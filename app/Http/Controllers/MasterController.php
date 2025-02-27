@@ -238,5 +238,18 @@ class MasterController extends Controller {
         return response()->json($fieldRelation);
     }
 
+    //exporar datos
+    public function exportData($nodeName) {
+        $node = Node::where('name', $nodeName)->first();
+        if(!$node) return abort(404);
+        if(!class_exists($node->model)) return abort(404);
+        $model = new $node->model;
+        $nodeService = new NodeService($model);
+        $data=$nodeService->get(request());
+        $fieldService = new FieldService($node);
+        $fields= $fieldService->getFieldAll();
+        $nodeService->exportData($data,$fields);
+    }
+
 
 }
