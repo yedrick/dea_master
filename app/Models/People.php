@@ -23,7 +23,7 @@ class People extends Model{
         'zone_id' => 'required|integer|exists:zones,id',
         'profession_id' => 'required|integer|exists:professions,id|unique:professions,name',
         'civil_status_id' => 'required|integer|exists:civil_statuses,id|unique:civil_statuses,name',
-        'membership_status_id' => 'required|integer|exists:membership_status,id|unique:membership_status,name',
+        'membership_status_id' => 'nullable|integer|exists:membership_status,id|unique:membership_status,name',
         'city_id' => 'required|integer|exists:cities,id',
         'ministry_id' => 'required|integer|exists:ministries,id',
 
@@ -57,7 +57,7 @@ class People extends Model{
             'zone_id' => 'required|integer|exists:zones,id',
             'city_id' => 'required|integer|exists:cities,id',
             'ministry_id' => 'required|integer|exists:ministries,id',
-            'membership_status_id' => 'required|integer|exists:membership_status,id',
+            'membership_status_id' => 'nullable|integer|exists:membership_status,id',
 
             'image'=> 'nullable|mimes:jpg,jpeg,bmp,png',
         );

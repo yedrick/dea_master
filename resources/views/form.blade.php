@@ -30,7 +30,12 @@
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
             <div>
-                <label class="block mb-2 font-semibold text-gray-700">Apellidos:</label>
+                <label class="block mb-2 font-semibold text-gray-700">Apellido Paterno:</label>
+                <input type="text" name="last_name" id="last_name"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+            <div>
+                <label class="block mb-2 font-semibold text-gray-700">Apellido Materno:</label>
                 <input type="text" name="last_name" id="last_name"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
@@ -45,7 +50,7 @@
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
             <div>
-                <label class="block mb-2 font-semibold text-gray-700">Teléfono:</label>
+                <label class="block mb-2 font-semibold text-gray-700">Celular:</label>
                 <input type="tel" name="phone_number" id="phone_number"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>

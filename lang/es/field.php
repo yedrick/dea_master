@@ -13,7 +13,7 @@ return [
     'unit_id'=>'Unidad',
     'user_id'=>'Usuario',
     'product_id'=>'Producto',
-    'phone_number'=>'Telefono',
+    'phone_number'=>'Celular',
     'ci'=>'CI',
     'email'=>'Email',
     'image'=>'Imagen',
