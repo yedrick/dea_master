@@ -14,7 +14,6 @@ use App\Models\Node;
 use App\Services\ColumnTypeMap;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 
 class NodeCommand extends CrudCommand{
 
@@ -114,7 +113,7 @@ class NodeCommand extends CrudCommand{
     }
 
     private function getDisplayItem($threshold, $name): string {
-        return in_array($name, ['created_at', 'updated_at', 'deleted_at','id']) ? 'none' : 'show';
+        return in_array($name, ['created_at', 'updated_at', 'deleted_at','id','email_verified_at']) ? 'none' : 'show';
     }
 
     private function handleSpecialFieldTypes(Field $field,$type,$option): void {
@@ -124,6 +123,8 @@ class NodeCommand extends CrudCommand{
                 : ['No', 'Si'];
 
             $this->createFieldOptions($options, $field->id);
+            $field->type='select';
+            $field->save();
         }
     }
 
