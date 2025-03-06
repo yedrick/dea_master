@@ -104,19 +104,27 @@ class MasterController extends Controller {
                     // Almacenar el archivo en el sistema de archivos de Laravel (por defecto, en la carpeta storage/app)
                     $file->storeAs('public/files', $fileName);
                     // Guardar la ruta del archivo en el modelo
-                    $model->{$fieldName} = 'file/' . $fileName;
+                    $model->{$fieldName} = $fileName;
                 }
             }elseif ($field->type=='image') {
                 // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
                 if ($file) {
-                    // Generar un nombre único para el archivo
+                    /// Generar un nombre único para el archivo
                     $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                    // Almacenar el archivo en el sistema de archivos de Laravel (por defecto, en la carpeta storage/app)
-                    $file->storeAs('public/images'.$node->name, $fileName);
-                    // Guardar la ruta del archivo en el modelo
-                    $model->{$fieldName} = 'images/' . $fileName;
+
+                    // Obtener la ruta pública del directorio donde deseas guardar el archivo
+                    $destinationPath = public_path('images/' . $node->name);
+
+                    // Crear el directorio si no existe
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0777, true);
+                    }
+
+                    // Mover el archivo a la carpeta deseada
+                    $file->move($destinationPath, $fileName);
+                    $model->{$fieldName} =$fileName;
                 }
             }elseif ($field->type=='password') {
                 $model->$fieldName=bcrypt($request->$fieldName);
@@ -162,12 +170,19 @@ class MasterController extends Controller {
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
                 if ($file) {
-                    // Generar un nombre único para el archivo
                     $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                    // Almacenar el archivo en el sistema de archivos de Laravel (por defecto, en la carpeta storage/app)
-                    $file->storeAs('public/images', $fileName);
-                    // Guardar la ruta del archivo en el modelo
-                    $model->{$fieldName} = 'images/' . $fileName;
+
+                    // Obtener la ruta pública del directorio donde deseas guardar el archivo
+                    $destinationPath = public_path('images/' . $node->name);
+
+                    // Crear el directorio si no existe
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0777, true);
+                    }
+
+                    // Mover el archivo a la carpeta deseada
+                    $file->move($destinationPath, $fileName);
+                    $model->{$fieldName} =$fileName;
                 }
             }elseif ($field->type=='password') {
                 $model->$fieldName=bcrypt($request->$fieldName);

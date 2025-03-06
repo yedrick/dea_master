@@ -23,6 +23,9 @@ class ColumnTypeMap {
 
     public function getColumnType($type, $name){
 
+        if($name=='image'){
+            return 'image';
+        }
         if (strpos($name, 'image') !== false || strpos($name, 'file') !== false) {
             return 'file';
         }

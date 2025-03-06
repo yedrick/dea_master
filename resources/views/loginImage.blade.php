@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <script>
+    <script> vcc
         window.addEventListener("DOMContentLoaded", () => Alpine.start());
 
     </script>
