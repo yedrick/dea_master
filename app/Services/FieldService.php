@@ -32,6 +32,11 @@ class FieldService {
         return Field::query()->where('parent_id', $this->node->id)->get();
     }
 
+    // funcion para obtener todos los fields de un nodo para excel
+    public function getFieldExcel() {
+        return Field::query()->where('parent_id', $this->node->id)->whereIn('display_list',['show','excel'])->orderBy('order', 'asc')->get();
+    }
+
     // funcion  para optener  los fields de un nodo segun display_list show
     public function getFieldShowModel() {
         $fields_model= $this->fields->where('parent_id', $this->node->id)->where('display_list', 'show')->orderBy('order', 'asc')->get();

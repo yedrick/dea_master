@@ -15,7 +15,11 @@ Route::middleware('auth')->group(function () {
     Route::post('model-filter/{nodeName}', [MasterController::class,'createFilters'])->name('model.filter');
     Route::put('model/update/{nodeName}/{id}',[MasterController::class,'update'])->name('model.update');
     Route::get('model/delete/{nodeName}/{id}', [MasterController::class,'delete'])->name('model.delete');
+    //exportar por node
+    Route::get('model-export/{nodeName}', [MasterController::class,'exportNode'])->name('model.export');
 
     // ajax
     Route::post('model-ajax/relation/{nodeName}', [MasterController::class,'ajaxRelationNode'])->name('model.ajax.relation');
+
+
 });
