@@ -5,6 +5,8 @@ return [
     'name' => 'Nombre',
     'first_name' => 'Nombre',
     'last_name' => 'Apellidos',
+    'paternal_last_name' => 'Apellido Paterno',
+    'maternal_last_name' => 'Apellido Materno',
     // 'code'=>'Abreviatura',
     'code'=>'Codigo',
     'created_at'=>'Creado',
