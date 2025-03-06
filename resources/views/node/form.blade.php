@@ -53,6 +53,7 @@
                                     <span class="absolute flex items-center justify-center w-10 h-full pointer-events-none text-slate-400 peer-focus:text-primary">
                                         <i class="fa fa-file" aria-hidden="true"></i>
                                     </span> --}}
+                                    <span><p>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</p></span> <br>
                                     <input type="file" name="{{ $field->name }}" id="{{ $field->name }}">
                                     @error($field->name)
                                             <span class="text-tiny+ text-error ">{{ $message }}</span>
