@@ -27,7 +27,7 @@
                         @endif
 
                         <li>
-                            <a href="{{ url('export-node/'.$node->name) }}"
+                            <a href="{{ url('model-export/'.$node->name) }}"
                                 class="flex items-center h-8 px-3 pr-8 space-x-3 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-px size-4.5" fill="none"
                                     viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">

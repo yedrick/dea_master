@@ -87,5 +87,11 @@ class NodeService extends CrudNodeService {
         return $relation;
     }
 
+    // funcion para obtener los datos para el excel de un nodo
+    public function getExcel($datos) {
+        \Log::info('datos: '.$datos);
+        $datos = json_decode($datos, true);
+        return $this->model::select($datos)->get();
+    }
 
 }

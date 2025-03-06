@@ -11,6 +11,7 @@ use App\Services\FieldService;
 use App\Services\FiltersService;
 use App\Services\FormRequestService;
 use App\Services\NodeService;
+use App\Services\ReportExcel;
 use App\Services\RulesValidationService;
 use App\Services\TypeValidation;
 use Illuminate\Contracts\Validation\Rule;
@@ -236,6 +237,24 @@ class MasterController extends Controller {
         $field=$fieldService->getById($request->id);
         $fieldRelation=$fieldService->getFieldRelation($field);
         return response()->json($fieldRelation);
+    }
+
+    //exporar datos
+    public function exportNode(Request $request,$nodeName) {
+        \Log::info('exportNode');
+        \Log::info($nodeName);
+        $node = Node::where('name', $nodeName)->first();
+        if(!$node) return abort(404);
+        if(!class_exists($node->model)) return abort(404);
+        $model = new $node->model;
+        $hiddenFields = (new $node->model)->getHidden();
+        $fieldService = new FieldService($node);
+        $fields_name= $fieldService->getFieldExcel()->pluck('name')->reject(fn($field) => in_array($field, $hiddenFields))->values();
+        $fields_tratucction = collect($fields_name)->map(fn($field) => __("field." . str_replace("field.", "", $field)))->toArray();
+        $nodeService = new NodeService($model);
+        $data=$nodeService->getExcel($fields_name)->toArray();
+        $excel=new ReportExcel();
+        return $excel->generateExcel($fields_tratucction,$data,$nodeName,$nodeName);
     }
 
 

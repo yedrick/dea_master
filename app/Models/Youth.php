@@ -44,6 +44,11 @@ class Youth extends Model{
         "id"=>"required",
     );
 
+    protected $hidden = [
+        'password',
+    ];
+
+
 
     // Definir relaciones y atributos aquí
 

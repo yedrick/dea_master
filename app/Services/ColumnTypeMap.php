@@ -22,6 +22,7 @@ class ColumnTypeMap {
 
 
     public function getColumnType($type, $name){
+
         if (strpos($name, 'image') !== false || strpos($name, 'file') !== false) {
             return 'file';
         }
@@ -40,6 +41,9 @@ class ColumnTypeMap {
         // verificamos  si es created_at , updated_at y deleted_at devolvemos date
         if ($name==='created_at'|| $name==='updated_at' || $name==='deleted_at') {
             return 'date';
+        }
+        if ($name==='password') {
+            return 'password';
         }
         return $this->types[$type] ?? 'text';
     }
