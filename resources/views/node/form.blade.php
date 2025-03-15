@@ -157,6 +157,25 @@
                                             <span class="text-tiny+ text-error">{{ $message }}</span>
                                     @enderror
                                 </label>
+                            @elseif($field->type=='checkbox')
+                                <label class="block">
+                                    <span>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</span></span>
+                                    <div class="flex items-center mt-1.5">
+                                        <select x-init="$el._tom = new Tom($el)" class="mt-1.5 w-full" multiple placeholder="Select a state..." autocomplete="off" name="{{ $field->name }}[]" id="{{ $field->name }}" {{ $field->required == 1 ? 'required' : null }}>
+                                            @forelse (app($field->relation_cond)->get() as $relation)
+                                                <option value="{{ $relation->id }}"
+                                                    {{ (isset($model) && in_array($relation->id, old($field->name, json_decode($model->{$field->name} ?? '[]', true)))) ? 'selected' : '' }} >
+                                                    {{ $relation->name }}
+                                                </option>
+                                            @empty
+                                                <option value="">No hay datos</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    @error($field->name)
+                                            <span class="text-tiny+ text-error">{{ $message }}</span>
+                                    @enderror
+                                </label>
                             @else
                                 <label class="block">
                                     <span>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</span></span>
