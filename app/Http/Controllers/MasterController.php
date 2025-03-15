@@ -18,7 +18,8 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class MasterController extends Controller {
+class MasterController extends Controller
+{
     //
     protected $prev;
     protected $node;
@@ -28,7 +29,8 @@ class MasterController extends Controller {
     protected $filter;
 
 
-    public function __construct(TypeValidation $typeValidation,FiltersService $filtersService) {
+    public function __construct(TypeValidation $typeValidation, FiltersService $filtersService)
+    {
         // $this->middleware('auth');
         $this->prev = url()->previous();
         $this->typeValidation = $typeValidation;
@@ -36,65 +38,69 @@ class MasterController extends Controller {
     }
 
     // listado de un datos
-    public function modelList($nodeName) {
+    public function modelList($nodeName)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        if(!class_exists($node->model)) return abort(404);
+        if (!$node) return abort(404);
+        if (!class_exists($node->model)) return abort(404);
         $model = $node->model;
-        if(!app($model)) return abort(404);
+        if (!app($model)) return abort(404);
         $nodeService = new NodeService($model);
         $fieldService = new FieldService($node);
         $fields_active = $fieldService->getFieldShowModel();
-        $fields= $fieldService->getFieldAll();
-        $data=$nodeService->get(request());
-        $filters=$this->filter->getFilter($node->id);
+        $fields = $fieldService->getFieldAll();
+        $data = $nodeService->get(request());
+        $filters = $this->filter->getFilter($node->id);
         // notify()->success('Welcome to Laravel Notify ⚡️', 'My custom title');
-        return view('node.index', ['node'=>$node,'data' => $data, 'fields' => $fields, 'titles' => $fields_active,'filters'=>$filters]);
+        return view('node.index', ['node' => $node, 'data' => $data, 'fields' => $fields, 'titles' => $fields_active, 'filters' => $filters]);
     }
 
 
     //obtener un dato
-    public function modelCreate($nodeName) {
+    public function modelCreate($nodeName)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
+        if (!$node) return abort(404);
         $fieldService = new FieldService($node);
         $fields = $fieldService->getFieldShow();
         $fieldOptionService = new FieldOptionService($node);
         $options = $fieldOptionService->getFieldOption($fields);
-        $field_form=$fieldService->getFieldForm();
-        return view('node.create', ['node'=>$node, 'fields' => $fields, 'options' => $options,'field_form'=>$field_form]);
+        $field_form = $fieldService->getFieldForm();
+        return view('node.create', ['node' => $node, 'fields' => $fields, 'options' => $options, 'field_form' => $field_form]);
     }
 
     // actualizar un datos
-    public function modelEdit($nodeName, $id) {
+    public function modelEdit($nodeName, $id)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
+        if (!$node) return abort(404);
         $fieldService = new FieldService($node);
         $fields = $fieldService->getFieldShow();
         $fieldOptionService = new FieldOptionService($node);
         $options = $fieldOptionService->getFieldOption($fields);
-        $field_form=$fieldService->getFieldForm();
+        $field_form = $fieldService->getFieldForm();
         $model = new $node->model;
         $model = $model->find($id);
-        if(!$model) return abort(404);
-        return view('node.edit', ['node'=>$node, 'fields' => $fields, 'options' => $options,'field_form'=>$field_form,'model'=>$model]);
+        if (!$model) return abort(404);
+        return view('node.edit', ['node' => $node, 'fields' => $fields, 'options' => $options, 'field_form' => $field_form, 'model' => $model]);
     }
 
     // guardar un datos
-    public function store(Request $request, $nodeName) {
+    public function store(Request $request, $nodeName)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        if(!class_exists($node->model)) return abort(404);
+        if (!$node) return abort(404);
+        if (!class_exists($node->model)) return abort(404);
         $model = new $node->model;
-        $validationResult=$this->typeValidation->hasTypeValidation($model,'created',$request);
-        if(!$validationResult['status']){
+        $validationResult = $this->typeValidation->hasTypeValidation($model, 'created', $request);
+        if (!$validationResult['status']) {
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();
         }
         $fieldService = new FieldService($node);
-        $field_form=$fieldService->getFieldForm();
+        $field_form = $fieldService->getFieldForm();
         foreach ($field_form as $key => $field) {
-            $fieldName=$field->name;
-            if($field->type=='file'){
+            $fieldName = $field->name;
+            if ($field->type == 'file') {
                 // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
@@ -106,7 +112,7 @@ class MasterController extends Controller {
                     // Guardar la ruta del archivo en el modelo
                     $model->{$fieldName} = $fileName;
                 }
-            }elseif ($field->type=='image') {
+            } elseif ($field->type == 'image') {
                 // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
@@ -124,12 +130,14 @@ class MasterController extends Controller {
 
                     // Mover el archivo a la carpeta deseada
                     $file->move($destinationPath, $fileName);
-                    $model->{$fieldName} =$fileName;
+                    $model->{$fieldName} = $fileName;
                 }
-            }elseif ($field->type=='password') {
-                $model->$fieldName=bcrypt($request->$fieldName);
-            }else {
-                $model->$fieldName=$request->$fieldName;
+            } elseif ($field->type == 'password') {
+                $model->$fieldName = bcrypt($request->$fieldName);
+            } elseif ($field->type == 'checkbox') {
+                $model->$fieldName = is_array($request->$fieldName) ? json_encode($request->$fieldName) : $request->$fieldName;
+            } else {
+                $model->$fieldName = $request->$fieldName;
             }
         }
         $model->save();
@@ -137,23 +145,24 @@ class MasterController extends Controller {
         return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro creado correctamente');
     }
 
-    public function update(Request $request ,$nodeName, $id) {
+    public function update(Request $request, $nodeName, $id)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        if(!class_exists($node->model)) return abort(404);
+        if (!$node) return abort(404);
+        if (!class_exists($node->model)) return abort(404);
         $model = new $node->model;
-        $model= $model->find($id);
-        if(!$model) return abort(404);
-        $validationResult=$this->typeValidation->hasTypeValidation($model,'updated',$request);
-        if(!$validationResult['status']){
+        $model = $model->find($id);
+        if (!$model) return abort(404);
+        $validationResult = $this->typeValidation->hasTypeValidation($model, 'updated', $request);
+        if (!$validationResult['status']) {
             Log::info('error');
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();
         }
         $fieldService = new FieldService($node);
-        $field_form=$fieldService->getFieldForm();
+        $field_form = $fieldService->getFieldForm();
         foreach ($field_form as $key => $field) {
-            $fieldName=$field->name;
-            if($field->type=='file'){
+            $fieldName = $field->name;
+            if ($field->type == 'file') {
                 // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
@@ -165,7 +174,7 @@ class MasterController extends Controller {
                     // Guardar la ruta del archivo en el modelo
                     $model->{$fieldName} = 'file/' . $fileName;
                 }
-            }elseif ($field->type=='image') {
+            } elseif ($field->type == 'image') {
                 // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
                 // Verificar si se proporcionó un archivo
@@ -182,95 +191,100 @@ class MasterController extends Controller {
 
                     // Mover el archivo a la carpeta deseada
                     $file->move($destinationPath, $fileName);
-                    $model->{$fieldName} =$fileName;
+                    $model->{$fieldName} = $fileName;
                 }
-            }elseif ($field->type=='password') {
-                $model->$fieldName=bcrypt($request->$fieldName);
-            }else {
-                $model->$fieldName=$request->$fieldName;
+            } elseif ($field->type == 'password') {
+                $model->$fieldName = bcrypt($request->$fieldName);
+            } elseif ($field->type == 'checkbox') {
+                $model->$fieldName = is_array($request->$fieldName) ? json_encode($request->$fieldName) : $request->$fieldName;
+            } else {
+                $model->$fieldName = $request->$fieldName;
             }
         }
         $model->update();
         return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro actualizado correctamente');
     }
 
-    public function delete($nodeName,$id){
+    public function delete($nodeName, $id)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        if(!class_exists($node->model)) return abort(404);
+        if (!$node) return abort(404);
+        if (!class_exists($node->model)) return abort(404);
         $model = new $node->model;
-        $model= $model->find($id);
-        if(!$model) return abort(404);
+        $model = $model->find($id);
+        if (!$model) return abort(404);
         $model->delete();
         return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Registro eliminado correctamente');
     }
 
-    public function updateOrderNode( Request $request, $nodeName) {
+    public function updateOrderNode(Request $request, $nodeName)
+    {
         Log::info('updateOrderNode');
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        $order=$request->display_order;
-        $list=$request->display_list;
+        if (!$node) return abort(404);
+        $order = $request->display_order;
+        $list = $request->display_list;
         foreach ($order as $key => $value) {
-            Field::where('name',$value)->where('parent_id',$node->id)->update(['order'=>($key+1)]);
+            Field::where('name', $value)->where('parent_id', $node->id)->update(['order' => ($key + 1)]);
         }
         // cmabiamos todos los fields a excel
-        Field::where('parent_id',$node->id)->update(['display_list'=>'excel']);
+        Field::where('parent_id', $node->id)->update(['display_list' => 'excel']);
         foreach ($list as $key => $value) {
-            Field::where('name',$value)->where('parent_id',$node->id)->update(['display_list'=>'show']);
+            Field::where('name', $value)->where('parent_id', $node->id)->update(['display_list' => 'show']);
         }
         return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Orden actualizado correctamente');
     }
 
-    public function createFilters(Request $request ,$nodeName ) {
+    public function createFilters(Request $request, $nodeName)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
+        if (!$node) return abort(404);
         Log::info('createFilters');
         Log::info($request->all());
         // creamos el filtro
         $filter = new Filter();
-        $filter->parent_id=$node->id;
-        $filter->name=$request->name;
-        if($request->field_relation!=null){
-            $filter->label='f_'.$request->value.'_'.$request->field_relation;
-        }else{
-            $filter->label=$request->field;
+        $filter->parent_id = $node->id;
+        $filter->name = $request->name;
+        if ($request->field_relation != null) {
+            $filter->label = 'f_' . $request->value . '_' . $request->field_relation;
+        } else {
+            $filter->label = $request->field;
         }
-        $filter->operator=$request->operator;
-        $filter->field_name=$request->field;
-        $filter->field_relation=$request->field_relation;
-        $filter->value=$request->value;
-        $filter->type=$request->type;
+        $filter->operator = $request->operator;
+        $filter->field_name = $request->field;
+        $filter->field_relation = $request->field_relation;
+        $filter->value = $request->value;
+        $filter->type = $request->type;
         $filter->save();
         return redirect()->route('model.list', ['nodeName' => $nodeName])->with('message_success', 'Filtro creado correctamente');
     }
 
-    public function ajaxRelationNode(Request $request,$nodeName) {
+    public function ajaxRelationNode(Request $request, $nodeName)
+    {
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
+        if (!$node) return abort(404);
         $fieldService = new FieldService($node);
-        $field=$fieldService->getById($request->id);
-        $fieldRelation=$fieldService->getFieldRelation($field);
+        $field = $fieldService->getById($request->id);
+        $fieldRelation = $fieldService->getFieldRelation($field);
         return response()->json($fieldRelation);
     }
 
     //exporar datos
-    public function exportNode(Request $request,$nodeName) {
+    public function exportNode(Request $request, $nodeName)
+    {
         \Log::info('exportNode');
         \Log::info($nodeName);
         $node = Node::where('name', $nodeName)->first();
-        if(!$node) return abort(404);
-        if(!class_exists($node->model)) return abort(404);
+        if (!$node) return abort(404);
+        if (!class_exists($node->model)) return abort(404);
         $model = new $node->model;
         $hiddenFields = (new $node->model)->getHidden();
         $fieldService = new FieldService($node);
-        $fields_name= $fieldService->getFieldExcel()->pluck('name')->reject(fn($field) => in_array($field, $hiddenFields))->values();
+        $fields_name = $fieldService->getFieldExcel()->pluck('name')->reject(fn($field) => in_array($field, $hiddenFields))->values();
         $fields_tratucction = collect($fields_name)->map(fn($field) => __("field." . str_replace("field.", "", $field)))->toArray();
         $nodeService = new NodeService($model);
-        $data=$nodeService->getExcel($fields_name)->toArray();
-        $excel=new ReportExcel();
-        return $excel->generateExcel($fields_tratucction,$data,$nodeName,$nodeName);
+        $data = $nodeService->getExcel($fields_name)->toArray();
+        $excel = new ReportExcel();
+        return $excel->generateExcel($fields_tratucction, $data, $nodeName, $nodeName);
     }
-
-
 }
