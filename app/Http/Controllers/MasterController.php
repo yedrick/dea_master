@@ -93,6 +93,13 @@ class MasterController extends Controller
         if (!class_exists($node->model)) return abort(404);
         $model = new $node->model;
         $validationResult = $this->typeValidation->hasTypeValidation($model, 'created', $request);
+        if (isset($validationResult['is_validate']) && !$validationResult['is_validate']) {
+            $type_property = $validationResult['type_property'];
+            return view('errors.missing_validation', [
+                'errorMessage' => 'Debe definir las reglas de validación para el tipo "' . $type_property . '" en el modelo. '
+                    . 'Ninguna de las dos validaciones (formRequest o rulesValidation) está definida correctamente.'
+            ]);
+        }
         if (!$validationResult['status']) {
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();
         }
@@ -154,6 +161,13 @@ class MasterController extends Controller
         $model = $model->find($id);
         if (!$model) return abort(404);
         $validationResult = $this->typeValidation->hasTypeValidation($model, 'updated', $request);
+        if (isset($validationResult['is_validate']) && !$validationResult['is_validate']) {
+            $type_property = $validationResult['type_property'];
+            return view('errors.missing_validation', [
+                'errorMessage' => 'Debe definir las reglas de validación para el tipo "' . $type_property . '" en el modelo. '
+                    . 'Ninguna de las dos validaciones (formRequest o rulesValidation) está definida correctamente.'
+            ]);
+        }
         if (!$validationResult['status']) {
             Log::info('error');
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();

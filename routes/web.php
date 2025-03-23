@@ -6,9 +6,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-require __DIR__.'/node.php';
+require __DIR__ . '/node.php';
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/import-export', [MainController::class, 'showImportExportExcel']);
-    Route::get('/export-student', [ProcessController::class,'exportData']);
-    Route::post('/import', [ProcessController::class,'importData']);
+    Route::get('/export-student', [ProcessController::class, 'exportData']);
+    Route::post('/import', [ProcessController::class, 'importData']);
     Route::get('/form-student', [MainController::class, 'showFormRegisterStudents']);
     Route::get('/form-teacher', [MainController::class, 'showFormRegisterProfesores']);
     Route::post('/save-teacher', [ProcessController::class, 'registerTeacher']);
@@ -33,14 +33,13 @@ Route::middleware('auth')->group(function () {
     //rutas para el registro de los estudiantes
     Route::get('view-young-pst', [ProcessController::class, 'viewScoreYoung']);
     Route::post('save-score', [ProcessController::class, 'registerScoreYoung']);
-
 });
 
 
 
 Route::prefix('ajax')->group(function () {
-    Route::get('/search-parent/{ci_number}', [ProcessController::class,'getParent']);
-    Route::post('/save-registration', [ProcessController::class,'registerParentAndStudents']);
+    Route::get('/search-parent/{ci_number}', [ProcessController::class, 'getParent']);
+    Route::post('/save-registration', [ProcessController::class, 'registerParentAndStudents']);
 });
 
 // subir imagen
@@ -65,6 +64,9 @@ Route::get('view', function () {
     return view('inicialCode');
 });
 
+Route::get('roles', function () {
+    return view('role.roles');
+});
 
 
 // Route::get('/loginImage', function () {
@@ -76,5 +78,3 @@ Route::get('/score', function () {
 // Route::get('/form', function () {
 //     return view('form');
 // });
-
-

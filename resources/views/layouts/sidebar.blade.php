@@ -98,173 +98,177 @@
                 Dashboard
               </a>
             </li>
-        @if (auth()->user()->hasRole('admin'))
-            <li>
-                <a x-data="navLink" href="{{url('model-list/user')}}"
-                :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                Usuarios
-              </a>
-            </li>
-            <li>
-                <a x-data="navLink" href="{{ url('model-list/people') }}"
-                :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                  class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
-                  Personas
+            @if (auth()->user()->can('view-user'))
+                <li>
+                    <a x-data="navLink" href="{{url('model-list/user')}}"
+                    :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                    class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                    Usuarios
                 </a>
-            </li>
+                </li>
+            @endif
+            @if (auth()->user()->can('view-person'))
+                <li>
+                    <a x-data="navLink" href="{{ url('model-list/people') }}"
+                    :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                    class="flex py-2 text-xs+ tracking-wide outline-none transition-colors duration-300 ease-in-out">
+                    Personas
+                    </a>
+                </li>
+            @endif
           </ul>
           <div class="h-px mx-4 my-3 bg-slate-200 dark:bg-navy-500"></div>
-          <ul class="flex flex-col flex-1 px-4 font-inter">
-            <li x-data="accordionItem('menu-item-1')">
-              <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
-                @click="expanded = !expanded"
-                class="flex items-center justify-between py-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out"
-                href="javascript:void(0);">
-                <span>Parametros</span>
-                <svg :class="expanded && 'rotate-90'" xmlns="http://www.w3.org/2000/svg"
-                  class="transition-transform ease-in-out size-4 text-slate-400" fill="none" viewbox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <ul x-collapse="" x-show="expanded">
-                <li>
-                  <a x-data="navLink" href="{{url('model-list/country')}}"
-                    :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                      <span>Paises</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/city') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
+          @if (auth()->user()->can('view-parameter'))
+            <ul class="flex flex-col flex-1 px-4 font-inter">
+                <li x-data="accordionItem('menu-item-1')">
+                <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
+                    @click="expanded = !expanded"
+                    class="flex items-center justify-between py-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out"
+                    href="javascript:void(0);">
+                    <span>Parametros</span>
+                    <svg :class="expanded && 'rotate-90'" xmlns="http://www.w3.org/2000/svg"
+                    class="transition-transform ease-in-out size-4 text-slate-400" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <ul x-collapse="" x-show="expanded">
+                    <li>
+                    <a x-data="navLink" href="{{url('model-list/country')}}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
                         <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Ciudades</span>
-                      </div>
+                        <span>Paises</span>
+                        </div>
                     </a>
-                  </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/zone') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/city') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Ciudades</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/zone') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Zonas</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/civil-status') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Estados Civiles</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/membership-status') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Estado de Membresias</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/ministry') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
                         <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Zonas</span>
-                      </div>
+                        <span>Ministerios</span>
+                        </div>
                     </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/civil-status') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Estados Civiles</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/membership-status') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Estado de Membresias</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/ministry') }}"
-                    :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                      <span>Ministerios</span>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/profession') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Profesiones</span>
-                      </div>
-                    </a>
-                </li>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/profession') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Profesiones</span>
+                        </div>
+                        </a>
+                    </li>
 
-              </ul>
-            </li>
-          </ul>
-        @endif
-          {{-- verificar si tiene permisos view-youth --}}
-          @if (auth()->user()->hasRole('youth') || auth()->user()->hasRole('admin'))
-          <ul class="flex flex-col flex-1 px-4 font-inter">
-            <li x-data="accordionItem('menu-item-2')">
-              <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
-                @click="expanded = !expanded"
-                class="flex items-center justify-between py-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out"
-                href="javascript:void(0);">
-                <span>Jovenes</span>
-                <svg :class="expanded && 'rotate-90'" xmlns="http://www.w3.org/2000/svg"
-                  class="transition-transform ease-in-out size-4 text-slate-400" fill="none" viewbox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-              <ul x-collapse="" x-show="expanded">
-                <li>
-                  <a x-data="navLink" href="{{url('model-list/youth')}}"
-                    :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                    class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                    <div class="flex items-center space-x-2">
-                      <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                      <span>Jovenes</span>
-                    </div>
-                  </a>
+                </ul>
                 </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/type-score') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Tipo Puntajes</span>
-                      </div>
-                    </a>
-                  </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('model-list/youth-score') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Puntaje de jovenes</span>
-                      </div>
-                    </a>
-                </li>
-                <li>
-                    <a x-data="navLink" href="{{ url('view-young-pst') }}"
-                      :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
-                      class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
-                      <div class="flex items-center space-x-2">
-                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
-                        <span>Añadir Puntos</span>
-                      </div>
-                    </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+            </ul>
           @endif
-
+        {{-- @endif --}}
+          {{-- verificar si tiene permisos view-youth --}}
+          @if (auth()->user()->can('view-youth'))
+            <ul class="flex flex-col flex-1 px-4 font-inter">
+                <li x-data="accordionItem('menu-item-2')">
+                <a :class="expanded ? 'text-slate-800 font-semibold dark:text-navy-50' : 'text-slate-600 dark:text-navy-200  hover:text-slate-800  dark:hover:text-navy-50'"
+                    @click="expanded = !expanded"
+                    class="flex items-center justify-between py-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out"
+                    href="javascript:void(0);">
+                    <span>Jovenes</span>
+                    <svg :class="expanded && 'rotate-90'" xmlns="http://www.w3.org/2000/svg"
+                    class="transition-transform ease-in-out size-4 text-slate-400" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+                <ul x-collapse="" x-show="expanded">
+                    <li>
+                    <a x-data="navLink" href="{{url('model-list/youth')}}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                        <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                        <span>Jovenes</span>
+                        </div>
+                    </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/type-score') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Tipo Puntajes</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('model-list/youth-score') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Puntaje de jovenes</span>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a x-data="navLink" href="{{ url('view-young-pst') }}"
+                        :class="isActive ? 'font-medium text-primary dark:text-accent-light' : 'text-slate-600 hover:text-slate-900 dark:text-navy-200 dark:hover:text-navy-50'"
+                        class="flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="size-1.5 rounded-full border border-current opacity-40"></div>
+                            <span>Añadir Puntos</span>
+                        </div>
+                        </a>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+          @endif
           {{-- <div class="h-px mx-4 my-3 bg-slate-200 dark:bg-navy-500"></div> --}}
         </div>
       </div>

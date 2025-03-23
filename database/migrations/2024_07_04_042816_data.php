@@ -71,8 +71,8 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('nodes')->onDelete('cascade');
         });
 
-
         
+
     }
 
     /**
@@ -80,6 +80,6 @@ return new class extends Migration
      */
     public function down(): void{
         //
-       
+
     }
 };

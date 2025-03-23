@@ -23,6 +23,7 @@
             @include('layouts.notificacion')
         {{-- </div> --}}
         <div id="root" class="flex min-h-100vh grow bg-slate-50 dark:bg-navy-900" x-cloak="">
+            {{-- @include('layouts.node_sidebar') --}}
             @include('layouts.sidebar')
             @include('layouts.navWeb')
             @include('layouts.navMobile')
