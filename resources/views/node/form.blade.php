@@ -76,23 +76,23 @@
                             @elseif ($field->type=='date')
                                 <label class="block">
                                     <span>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</span></span>
-                                    <label class="relative flex">
-                                        <input
-                                        x-init="$el._x_flatpickr = flatpickr($el)"
-                                        class="w-full px-3 py-2 bg-transparent border rounded-lg form-input peer border-slate-300 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary"
-                                        placeholder="{{ $field->placeholder }}"
-                                        type="text" value="{{ old($field->name, isset($model) ? $model->{$field->name} : '') }}" name="{{ $field->name }}" id="{{ $field->name }}" {{ $field->required==1?'required':null }}
-                                        />
-                                        <span class="absolute flex items-center justify-center w-10 h-full pointer-events-none text-slate-400 peer-focus:text-primary" >
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="transition-colors duration-200 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                        </svg>
-
-                                    </span>
+                                        <label class="relative flex">
+                                            <input
+                                            x-init="$el._x_flatpickr = flatpickr($el)"
+                                            class="w-full px-3 py-2 bg-transparent border rounded-lg form-input peer border-slate-300 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary"
+                                            placeholder="{{ $field->placeholder }}"
+                                            type="text" value="{{ old($field->name, isset($model) ? $model->{$field->name} : '') }}" name="{{ $field->name }}" id="{{ $field->name }}" {{ $field->required==1?'required':null }}
+                                            />
+                                            <span class="absolute flex items-center justify-center w-10 h-full pointer-events-none text-slate-400 peer-focus:text-primary" >
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="transition-colors duration-200 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                                </svg>
+                                            </span>
+                                        </label>
                                         @error($field->name)
                                             <span class="text-tiny+ text-error ">{{ $message }}</span>
                                         @enderror
-                                    </label>
+
                                 </label>
                             @elseif ($field->type=='integer' || $field->type=='decimal' )
                                 <label class="block">

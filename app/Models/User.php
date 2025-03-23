@@ -33,6 +33,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /* Create rules */
+    public static $rules_created = array();
+    /* Updating rules */
+    public static $rules_updated = array();
+    /* Delete rules falta */
+    public static $rules_remove = array();
+
     /**
      * Get the attributes that should be cast.
      *
@@ -48,7 +55,4 @@ class User extends Authenticatable
 
     // Definir relaciones y atributos aquí
 
-    public function teacher() {
-        return $this->hasOne(Teacher::class);
-    }
 }

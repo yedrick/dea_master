@@ -1,7 +1,9 @@
 <div class="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6">
 
     <div x-data="{isFilterExpanded:false,isSecondDivExpanded: false,isCreatefilters:false}">
-        @include('node.filtro')
+        @if (auth()->user()->hasRole('admin'))
+            @include('node.filtro')
+        @endif
         <div class="mt-3 card">
             <div class="min-w-full overflow-x-auto is-scrollbar-hidden">
                 <table class="w-full text-left is-hoverable">

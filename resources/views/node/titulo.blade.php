@@ -25,7 +25,7 @@
                                 <span>Nuevo {{ $node->singular ? __($node->singular) : $node->name }}</span></a>
                         </li>
                         @endif
-
+                        @if (auth()->user()->can('export'))
                         <li>
                             <a href="{{ url('model-export/'.$node->name) }}"
                                 class="flex items-center h-8 px-3 pr-8 space-x-3 font-medium tracking-wide transition-all outline-none hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800">
@@ -37,6 +37,8 @@
                                 {{-- dd node name plural --}}
                                 <span>Exportar {{ $node->plural ? __($node->plural) : $node->name }} </span></a>
                         </li>
+                        @endif
+
                     </ul>
                 </div>
             </div>
