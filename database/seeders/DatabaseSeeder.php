@@ -201,24 +201,24 @@ class DatabaseSeeder extends Seeder
         // Zone::insert($zones);
 
         // //esatdo civiles
-        // $status = [
-        //     [
-        //         'name' => 'Soltero',
-        //     ],
-        //     [
-        //         'name' => 'Casado',
-        //     ],
-        //     [
-        //         'name' => 'Divorciado',
-        //     ],
-        //     [
-        //         'name' => 'Viudo',
-        //     ],
-        //     [
-        //         'name' => 'Union Libre',
-        //     ],
-        // ];
-        // CivilStatus::insert($status);
+        $status = [
+            [
+                'name' => 'Soltero',
+            ],
+            [
+                'name' => 'Casado',
+            ],
+            [
+                'name' => 'Divorciado',
+            ],
+            [
+                'name' => 'Viudo',
+            ],
+            [
+                'name' => 'Union Libre',
+            ],
+        ];
+        CivilStatus::insert($status);
 
 
         // $ministerios = [
@@ -235,21 +235,21 @@ class DatabaseSeeder extends Seeder
         // Ministry::insert($ministerios);
 
         // //estados de membresia
-        // $membresia = [
-        //     [
-        //         'name' => 'Activo',
-        //     ],
-        //     [
-        //         'name' => 'Inactivo',
-        //     ],
-        //     [
-        //         'name' => 'En proceso',
-        //     ],
-        //     [
-        //         'name' => 'Expulsado',
-        //     ],
-        // ];
-        // MembershipStatus::insert($membresia);
+        $membresia = [
+            [
+                'name' => 'Activo',
+            ],
+            [
+                'name' => 'Inactivo',
+            ],
+            [
+                'name' => 'En proceso',
+            ],
+            [
+                'name' => 'Expulsado',
+            ],
+        ];
+        MembershipStatus::insert($membresia);
 
         // $profeciones = [
         //     [
