@@ -175,102 +175,102 @@ class DatabaseSeeder extends Seeder
 
         ///borrar
 
-        $zones = [
-            [
-                'name' => 'Zona Sur',
-                'details' => 'Zona Sur',
-            ],
-            [
-                'name' => 'Zona Norte',
-                'details' => 'Zona Norte',
-            ],
-            [
-                'name' => 'Zona Central',
-                'details' => 'Zona Central',
-            ],
-            [
-                'name' => 'Zona Este',
-                'details' => 'Zona Este',
-            ],
-            [
-                'name' => 'Zona Oeste',
-                'details' => 'Zona Oeste',
-            ],
-        ];
+        // $zones = [
+        //     [
+        //         'name' => 'Zona Sur',
+        //         'details' => 'Zona Sur',
+        //     ],
+        //     [
+        //         'name' => 'Zona Norte',
+        //         'details' => 'Zona Norte',
+        //     ],
+        //     [
+        //         'name' => 'Zona Central',
+        //         'details' => 'Zona Central',
+        //     ],
+        //     [
+        //         'name' => 'Zona Este',
+        //         'details' => 'Zona Este',
+        //     ],
+        //     [
+        //         'name' => 'Zona Oeste',
+        //         'details' => 'Zona Oeste',
+        //     ],
+        // ];
 
-        Zone::insert($zones);
+        // Zone::insert($zones);
 
-        //esatdo civiles
-        $status = [
-            [
-                'name' => 'Soltero',
-            ],
-            [
-                'name' => 'Casado',
-            ],
-            [
-                'name' => 'Divorciado',
-            ],
-            [
-                'name' => 'Viudo',
-            ],
-            [
-                'name' => 'Union Libre',
-            ],
-        ];
-        CivilStatus::insert($status);
+        // //esatdo civiles
+        // $status = [
+        //     [
+        //         'name' => 'Soltero',
+        //     ],
+        //     [
+        //         'name' => 'Casado',
+        //     ],
+        //     [
+        //         'name' => 'Divorciado',
+        //     ],
+        //     [
+        //         'name' => 'Viudo',
+        //     ],
+        //     [
+        //         'name' => 'Union Libre',
+        //     ],
+        // ];
+        // CivilStatus::insert($status);
 
 
-        $ministerios = [
-            [
-                'name' => 'Escuela dominical',
-            ],
-            [
-                'name' => 'Jovenes',
-            ],
-            [
-                'name' => 'Mujeres',
-            ],
-        ];
-        Ministry::insert($ministerios);
+        // $ministerios = [
+        //     [
+        //         'name' => 'Escuela dominical',
+        //     ],
+        //     [
+        //         'name' => 'Jovenes',
+        //     ],
+        //     [
+        //         'name' => 'Mujeres',
+        //     ],
+        // ];
+        // Ministry::insert($ministerios);
 
-        //estados de membresia
-        $membresia = [
-            [
-                'name' => 'Activo',
-            ],
-            [
-                'name' => 'Inactivo',
-            ],
-            [
-                'name' => 'En proceso',
-            ],
-            [
-                'name' => 'Expulsado',
-            ],
-        ];
-        MembershipStatus::insert($membresia);
+        // //estados de membresia
+        // $membresia = [
+        //     [
+        //         'name' => 'Activo',
+        //     ],
+        //     [
+        //         'name' => 'Inactivo',
+        //     ],
+        //     [
+        //         'name' => 'En proceso',
+        //     ],
+        //     [
+        //         'name' => 'Expulsado',
+        //     ],
+        // ];
+        // MembershipStatus::insert($membresia);
 
-        $profeciones = [
-            [
-                'name' => 'Ingeniero',
-            ],
-            [
-                'name' => 'Medico',
-            ],
-            [
-                'name' => 'Abogado',
-            ],
-            [
-                'name' => 'Profesor',
-            ],
-            [
-                'name' => 'Estudiante',
-            ],
-            [
-                'name' => 'Otro',
-            ]
-        ];
-        Profession::insert($profeciones);
+        // $profeciones = [
+        //     [
+        //         'name' => 'Ingeniero',
+        //     ],
+        //     [
+        //         'name' => 'Medico',
+        //     ],
+        //     [
+        //         'name' => 'Abogado',
+        //     ],
+        //     [
+        //         'name' => 'Profesor',
+        //     ],
+        //     [
+        //         'name' => 'Estudiante',
+        //     ],
+        //     [
+        //         'name' => 'Otro',
+        //     ]
+        // ];
+        // Profession::insert($profeciones);
     }
 }
