@@ -16,8 +16,8 @@ class People extends Model
         'first_name' => 'required|string',
         'paternal_last_name' => 'required|string',
         'maternal_last_name' => 'required|string',
-        'email' => 'required|string|unique:peoples,email',
-        'phone_number' => 'required|string|unique:peoples,phone_number',
+        'email' => 'nullable|string|unique:peoples,email',
+        'phone_number' => 'nullable|string|unique:peoples,phone_number',
         'gender' => 'required|in:M,F',
         'birth_date' => 'required|date',
 
@@ -42,8 +42,8 @@ class People extends Model
         'first_name' => 'required|string',
         'paternal_last_name' => 'required|string',
         'maternal_last_name' => 'required|string',
-        'email' => 'required|string',
-        'phone_number' => 'required|string',
+        'email' => 'nullable|string',
+        'phone_number' => 'nullable|string',
         'gender' => 'required|in:M,F',
         'birth_date' => 'required|date',
 
