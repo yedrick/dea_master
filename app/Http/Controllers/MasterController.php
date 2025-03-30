@@ -49,7 +49,7 @@ class MasterController extends Controller
         $fieldService = new FieldService($node);
         $fields_active = $fieldService->getFieldShowModel();
         $fields = $fieldService->getFieldAll();
-        $data = $nodeService->get(request());
+        $data = $nodeService->get(request(), $node);
         $filters = $this->filter->getFilter($node->id);
         // notify()->success('Welcome to Laravel Notify ⚡️', 'My custom title');
         return view('node.index', ['node' => $node, 'data' => $data, 'fields' => $fields, 'titles' => $fields_active, 'filters' => $filters]);
@@ -88,6 +88,8 @@ class MasterController extends Controller
     // guardar un datos
     public function store(Request $request, $nodeName)
     {
+        \Log::info('Request');
+        \Log::info($request->all());
         $node = Node::where('name', $nodeName)->first();
         if (!$node) return abort(404);
         if (!class_exists($node->model)) return abort(404);
@@ -101,6 +103,15 @@ class MasterController extends Controller
             ]);
         }
         if (!$validationResult['status']) {
+            if ($request->hasFile('image')) {
+                $imagen = $request->file('image');
+                $nombreArchivo = time() . '.' . $imagen->extension();
+                $imagen->move(public_path('/temp'), $nombreArchivo);
+                session()->flash('temp_image', [
+                    'name' => $imagen->getClientOriginalName(),
+                    'path' => asset('temp/' . $nombreArchivo)
+                ]);
+            }
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();
         }
         $fieldService = new FieldService($node);
@@ -108,36 +119,35 @@ class MasterController extends Controller
         foreach ($field_form as $key => $field) {
             $fieldName = $field->name;
             if ($field->type == 'file') {
-                // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
-                // Verificar si se proporcionó un archivo
                 if ($file) {
-                    // Generar un nombre único para el archivo
                     $fileName = uniqid() . '_' . $file->getClientOriginalName();
-                    // Almacenar el archivo en el sistema de archivos de Laravel (por defecto, en la carpeta storage/app)
                     $file->storeAs('public/files', $fileName);
-                    // Guardar la ruta del archivo en el modelo
                     $model->{$fieldName} = $fileName;
                 }
             } elseif ($field->type == 'image') {
-                // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
-                // Verificar si se proporcionó un archivo
                 if ($file) {
-                    /// Generar un nombre único para el archivo
                     $fileName = uniqid() . '_' . $file->getClientOriginalName();
-
-                    // Obtener la ruta pública del directorio donde deseas guardar el archivo
                     $destinationPath = public_path('images/' . $node->name);
-
-                    // Crear el directorio si no existe
                     if (!file_exists($destinationPath)) {
                         mkdir($destinationPath, 0777, true);
                     }
-
-                    // Mover el archivo a la carpeta deseada
                     $file->move($destinationPath, $fileName);
                     $model->{$fieldName} = $fileName;
+                    session()->forget('temp_image');
+                } elseif ($request->has('temp_image_path')) {
+                    $tempPath = $request->input('temp_' . $field->name . '_path');
+                    $tempFileName = basename(parse_url($tempPath, PHP_URL_PATH));
+                    if (file_exists(public_path('temp/' . $tempFileName))) {
+                        $imageName = time() . '_' . $tempFileName;
+                        \Illuminate\Support\Facades\File::move(
+                            public_path('temp/' . $tempFileName),
+                            public_path('images/' . $node->name . '/' . $imageName)
+                        );
+                        $model->{$fieldName} = $imageName;
+                        session()->forget('temp_image');
+                    }
                 }
             } elseif ($field->type == 'password') {
                 $model->$fieldName = bcrypt($request->$fieldName);
@@ -169,7 +179,15 @@ class MasterController extends Controller
             ]);
         }
         if (!$validationResult['status']) {
-            Log::info('error');
+            if ($request->hasFile('image')) {
+                $imagen = $request->file('image');
+                $nombreArchivo = time() . '.' . $imagen->extension();
+                $imagen->move(public_path('/temp'), $nombreArchivo);
+                session()->flash('temp_image', [
+                    'name' => $imagen->getClientOriginalName(),
+                    'path' => asset('temp/' . $nombreArchivo)
+                ]);
+            }
             return redirect()->back()->withErrors($validationResult['errors'])->withInput();
         }
         $fieldService = new FieldService($node);
@@ -189,23 +207,28 @@ class MasterController extends Controller
                     $model->{$fieldName} = 'file/' . $fileName;
                 }
             } elseif ($field->type == 'image') {
-                // Obtener el archivo de la solicitud
                 $file = $request->file($fieldName);
-                // Verificar si se proporcionó un archivo
                 if ($file) {
                     $fileName = uniqid() . '_' . $file->getClientOriginalName();
-
-                    // Obtener la ruta pública del directorio donde deseas guardar el archivo
                     $destinationPath = public_path('images/' . $node->name);
-
-                    // Crear el directorio si no existe
                     if (!file_exists($destinationPath)) {
                         mkdir($destinationPath, 0777, true);
                     }
-
-                    // Mover el archivo a la carpeta deseada
                     $file->move($destinationPath, $fileName);
                     $model->{$fieldName} = $fileName;
+                    session()->forget('temp_image');
+                } elseif ($request->has('temp_image_path')) {
+                    $tempPath = $request->input('temp_' . $field->name . '_path');
+                    $tempFileName = basename(parse_url($tempPath, PHP_URL_PATH));
+                    if (file_exists(public_path('temp/' . $tempFileName))) {
+                        $imageName = time() . '_' . $tempFileName;
+                        \Illuminate\Support\Facades\File::move(
+                            public_path('temp/' . $tempFileName),
+                            public_path('images/' . $node->name . '/' . $imageName)
+                        );
+                        $model->{$fieldName} = $imageName;
+                        session()->forget('temp_image');
+                    }
                 }
             } elseif ($field->type == 'password') {
                 $model->$fieldName = bcrypt($request->$fieldName);

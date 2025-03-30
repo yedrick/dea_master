@@ -20,7 +20,8 @@
                                         <select class="mt-1.5 w-full " x-init="$el._tom = new Tom($el,{create: true,sortField: {field: 'text',direction: 'asc'}})" name="{{ $field->name }}" id="{{ $field->name }}" {{ $field->required==1?'required':null }} >
 
                                             @forelse (app($field->relation_cond)->get() as $realation)
-                                                <option value="{{ $realation->id }}" {{ (isset($model) && $model->{$field->name} == $realation->id) ? 'selected' : '' }} > {{ $realation->name }}</option>
+                                                {{-- <option value="{{ $realation->id }}" {{ (isset($model) && $model->{$field->name} == $realation->id) ? 'selected' : '' }} > {{ $realation->name }}</option> --}}
+                                                <option value="{{ $realation->id }}" {{ old($field->name, isset($model) ? $model->{$field->name} : '') == $realation->id ? 'selected' : '' }} >{{ $realation->name }}</option>
                                             @empty
                                                 <option value="">No hay datos</option>
                                             @endforelse
@@ -45,20 +46,23 @@
                                     </label>
                                 @endif
                             @elseif ($field->type=='image')
-                                <label class="block">
-                                    {{-- <span>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</span></span>
-                                    <div class="filepond fp-grid fp-bordered [--fp-grid:4]">
-                                        <input type="file"  x-init="$el._x_filepond = FilePond.create($el)" multiple  name="{{ $field->name }}" id="{{ $field->name }}"  accept="image/*" />
-                                    </div>
-                                    <span class="absolute flex items-center justify-center w-10 h-full pointer-events-none text-slate-400 peer-focus:text-primary">
-                                        <i class="fa fa-file" aria-hidden="true"></i>
-                                    </span> --}}
-                                    <span><p>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</p></span> <br>
-                                    <input type="file" name="{{ $field->name }}" id="{{ $field->name }}">
-                                    @error($field->name)
-                                            <span class="text-tiny+ text-error ">{{ $message }}</span>
-                                    @enderror
-                                </label>
+                            <label class="block">
+                                <span><p>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</p></span> <br>
+
+                                <input type="file" name="{{ $field->name }}" id="{{ $field->name }}" onchange="previewImage(this, '{{ $field->name }}_preview')">
+
+                                <!-- Añadir div para la previsualización -->
+                                <div id="{{ $field->name }}_preview" class="mt-2">
+                                    @if(session('temp_image'))
+                                        <img src="{{ session('temp_image')['path'] }}" alt="Vista previa" class="max-w-xs">
+                                        <input type="hidden" name="temp_{{ $field->name }}_path" value="{{ session('temp_image')['path'] }}">
+                                    @endif
+                                </div>
+
+                                @error($field->name)
+                                    <span class="text-tiny+ text-error">{{ $message }}</span>
+                                @enderror
+                            </label>
                             @elseif ($field->type=='file')
                                 <label class="block">
                                     <span>{{ $field->label ? __($field->label) : $field->name }} <span class="text-error">{{ $field->required==1?'*':'' }}</span></span>
@@ -222,3 +226,25 @@
         </div>
     </div>
 </div>
+@once
+<script>
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        preview.innerHTML = '';
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Vista previa';
+                img.className = 'max-w-xs';
+                preview.appendChild(img);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@endonce
