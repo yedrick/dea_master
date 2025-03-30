@@ -88,8 +88,6 @@ class MasterController extends Controller
     // guardar un datos
     public function store(Request $request, $nodeName)
     {
-        \Log::info('Request');
-        \Log::info($request->all());
         $node = Node::where('name', $nodeName)->first();
         if (!$node) return abort(404);
         if (!class_exists($node->model)) return abort(404);
