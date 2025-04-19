@@ -51,8 +51,8 @@
         </div>
 
         <div class="flex justify-between p-8 text-sm border-t border-gray-300 bg-gray-100">
-            <a href="{{ url('./register') }}" class="font-medium text-base "
-            style="color: #002860">Crear Cuenta</a>
+            <!--<a href="{{ url('./register') }}" class="font-medium text-base "-->
+            <!--style="color: #002860">Crear Cuenta</a>-->
 
             @if (Route::has('password.request'))
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

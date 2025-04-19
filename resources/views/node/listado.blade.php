@@ -34,9 +34,14 @@
                                     </td>
                                 @elseif ($field->type === 'image')
                                     <td class="px-4 py-3 font-medium whitespace-nowrap text-slate-700 sm:px-5">
-                                        {{-- <img src="{{ asset('storage/'.$item->{$field->name}) }}" alt="{{ $item->{$field->name} }}"
-                                            class="w-10 h-10 rounded-full"> --}}
-                                            <a href="{{ asset('images/'.$node->name.'/'.$item->{$field->name}) }}">VER</a>
+                                            <!--<a href="{{ asset('images/'.$node->name.'/'.$item->{$field->name}) }}">VER</a>-->
+                                        @if(!empty($item->foto))
+                                            <a href="{{ $item->foto }}" target="_blank">VER</a>
+                                        @elseif(!empty($item->{$field->name}))
+                                            <a href="{{ asset('images/'.$node->name.'/'.$item->{$field->name}) }}" target="_blank">VER</a>
+                                        @else
+                                            <span>No disponible</span>
+                                        @endif
                                     </td>
                                 @else
                                     <td class="px-4 py-3 font-medium whitespace-nowrap text-slate-700 sm:px-5">

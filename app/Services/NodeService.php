@@ -117,5 +117,6 @@ class NodeService extends CrudNodeService
         \Log::info('datos: ' . $datos);
         $datos = json_decode($datos, true);
         return $this->model::select($datos)->get();
+        //return $this->model::get();
     }
 }

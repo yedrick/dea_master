@@ -9,6 +9,7 @@ class Youth extends Model{
     protected $table = 'youths';
     protected $with = [];
     public $timestamps=true;
+    protected $appends = ['imagen_numero', 'imagen_normal','foto','pts'];
 
     /* Create rules */
     public static $rules_created = array(
@@ -56,5 +57,30 @@ class Youth extends Model{
     public function getNameAttribute() {
         return $this->first_name.' '.$this->last_name;
     }
+    
+    public function getFotoAttribute()
+    {
+        return asset('img/youngs/original/' . $this->image.'.jpg');
+    }
+    
+    public function getImagenNumeroAttribute()
+    {
+        return asset('img/youngs/text/' . $this->image);
+    }
 
+    public function getImagenNormalAttribute()
+    {
+        return asset('img/youngs/original/' . $this->image);
+    }
+    
+    public function youthScores()
+    {
+        return $this->hasMany(YouthScore::class);
+    }
+
+    // Accesor para obtener total de puntos
+    public function getPtsAttribute()
+    {
+        return $this->youthScores->sum('pts');
+    }
 }
